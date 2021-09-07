@@ -1,0 +1,9 @@
+/* Add CSS styles here! */
+body {
+    font-family: sans-serif;
+}
+
+@font-face {
+    font-family: aAnotherTag;
+    src: url("/aAnotherTag.otf") format("opentype");
+}

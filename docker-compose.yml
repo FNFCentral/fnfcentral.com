@@ -1,0 +1,57 @@
+version: "3.9"
+services:
+    frontend:
+        build: ./frontend
+
+    nginx:
+        build: ./testing_nginx
+        ports:
+            - 80:80
+            - 443:443
+
+    nginx-exporter:
+        image: nginx/nginx-prometheus-exporter
+        command: -nginx.scrape-uri=http://nginx:8080/status
+
+    raw:
+        build: ./testing_raw
+
+    sqldb:
+        image: timescale/timescaledb:latest-pg12
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_PASSWORD: password
+        volumes:
+            - sqldb-data:/var/lib/postgresql/data
+
+    postgres-exporter:
+        image: quay.io/prometheuscommunity/postgres-exporter
+        environment:
+            DATA_SOURCE_NAME: postgresql://postgres:password@sqldb:5432/postgres?sslmode=allow
+            PG_EXPORTER_AUTO_DISCOVER_DATABASES: "true"
+        ports:
+            - 9187:9187
+
+    prometheus:
+        build: ./metrics
+
+    promscale:
+        image: timescale/promscale
+        ports:
+            - 9201:9201
+        environment:
+            PROMSCALE_DB_CONNECT_RETRIES: 10
+            PROMSCALE_DB_URI: postgres://postgres:password@sqldb:5432/postgres?sslmode=allow
+
+    grafana:
+        image: grafana/grafana
+        volumes:
+            - grafana-data:/var/lib/grafana
+
+volumes:
+    raw-games:
+
+    sqldb-data:
+
+    grafana-data:
