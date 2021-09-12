@@ -9,6 +9,7 @@
         "build": "routify -b && snowpack build"
     },
     "devDependencies": {
+        "@fortawesome/free-solid-svg-icons": "^5.15.4",
         "@roxi/routify": "^2.18.3",
         "@snowpack/plugin-postcss": "^1.4.3",
         "@snowpack/plugin-sass": "^1.4.0",
@@ -21,6 +22,8 @@
         "sass": "^1.38.2",
         "snowpack": "^3.3.7",
         "svelte": "^3.42.4",
+        "svelte-fa": "^2.3.3",
         "tailwindcss": "^2.2.8"
-    }
+    },
+    "dependencies": {}
 }

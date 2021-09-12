@@ -1,4 +1,7 @@
 <script>
+    import Fa from "svelte-fa/src/fa.svelte";
+    import { faExpand } from "@fortawesome/free-solid-svg-icons";
+
     import { params, metatags } from "@roxi/routify";
 
     $: {
@@ -6,6 +9,21 @@
     }
 
     $: gameID = $params.gameID;
+
+    // Fullscreen crap
+    function makeFullscreen() {
+        let elem = document.getElementById("game");
+
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) {
+            /* Safari */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+            /* IE11 */ // I kinda copy pasted this.  This site does NOT like IE.
+            elem.msRequestFullscreen();
+        }
+    }
 
     // Game Interaction
     $: gameScore = 0;
@@ -125,13 +143,22 @@
 
 <p>Playing Game {gameID}</p>
 
-<div class="gameContainer">
+<div id="gameContainer">
+    <div
+        id="fullscreenButtonContainer"
+        class="absolute bottom-0 right-0 z-20"
+        on:click={makeFullscreen}
+    >
+        <Fa icon={faExpand} color="#ff1cb0" class="w-full !h-full" />
+    </div>
     <iframe
+        id="game"
         src="http://raw.fnfcentral.com/{gameID}"
         allowfullscreen
         allow="fullscreen"
         loading="lazy"
         title="Game {gameID}"
+        class="z-0"
     />
 </div>
 
@@ -147,14 +174,17 @@
 </div>
 
 <style>
-    .gameContainer {
+    #gameContainer {
         position: relative;
         overflow: hidden;
-        z-index: 50;
         width: 70%;
         padding-top: calc(
             56.25% * 0.7
         ); /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+    }
+
+    #fullscreenButtonContainer {
+        width: 5%;
     }
 
     iframe {
