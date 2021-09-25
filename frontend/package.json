@@ -24,6 +24,5 @@
         "svelte": "^3.42.4",
         "svelte-fa": "^2.3.3",
         "tailwindcss": "^2.2.8"
-    },
-    "dependencies": {}
+    }
 }

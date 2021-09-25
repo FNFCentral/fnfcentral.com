@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5555,
+            "driver": "PostgreSQL",
+            "name": "FNFCentral",
+            "username": "postgres",
+            "database": "postgres",
+            "password": "password"
+        }
+    ]
+}

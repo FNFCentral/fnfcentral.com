@@ -153,7 +153,7 @@
     </div>
     <iframe
         id="game"
-        src="http://raw.fnfcentral.com/{gameID}"
+        src="https://raw.fnfcentral.com/{gameID}"
         allowfullscreen
         allow="fullscreen"
         loading="lazy"

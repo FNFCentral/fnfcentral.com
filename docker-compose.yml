@@ -16,10 +16,29 @@ services:
     raw:
         build: ./testing_raw
 
+    kratos-migrate:
+        build: ./kratos
+        command: migrate --config /home/ory/kratos.yml sql -e --yes
+        restart: on-failure
+
+    kratos:
+        build: ./kratos
+        command: serve --watch-courier --config /home/ory/kratos.yml
+        environment:
+            LOG_LEAK_SENSITIVE_VALUES: "true"
+        ports:
+            - 4434:4434
+
+    byebyemail:
+        image: oryd/mailslurper:latest-smtps
+        ports:
+            - 4436:4436
+            - 4437:4437
+
     sqldb:
         image: timescale/timescaledb:latest-pg12
         ports:
-            - 5432:5432
+            - 5555:5432
         environment:
             POSTGRES_PASSWORD: password
         volumes:
@@ -30,16 +49,12 @@ services:
         environment:
             DATA_SOURCE_NAME: postgresql://postgres:password@sqldb:5432/postgres?sslmode=allow
             PG_EXPORTER_AUTO_DISCOVER_DATABASES: "true"
-        ports:
-            - 9187:9187
 
     prometheus:
         build: ./metrics
 
     promscale:
         image: timescale/promscale
-        ports:
-            - 9201:9201
         environment:
             PROMSCALE_DB_CONNECT_RETRIES: 10
             PROMSCALE_DB_URI: postgres://postgres:password@sqldb:5432/postgres?sslmode=allow
