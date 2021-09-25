@@ -110,7 +110,7 @@
                         name="email"
                         id="email_input"
                         type="email"
-                        placeholder="boyfriend@funkin.me"
+                        placeholder="bf@fnfcentral.com"
                     />
                 </div>
                 <div id="password_holder">

@@ -53,9 +53,9 @@
 
 {#if modalOpen}
     {#if modalRegister}
-        <RegisterModal open={modalOpen} />
+        <RegisterModal {modalClose} />
     {:else if modalLogIn}
-        <LoginModal open={modalOpen} />
+        <LoginModal {modalClose} />
     {:else}
         <script>
             console.log("Something Wrong With The Modal!");
