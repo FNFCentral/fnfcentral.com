@@ -2,31 +2,19 @@
     import { onMount } from "svelte";
     import { url } from "@roxi/routify";
 
-    import RegisterModal from "./Modals/Register.svelte";
-    import LoginModal from "./Modals/Login.svelte";
+    import registerPopup from "./Auth/register.js";
+    import loginPopup from "./Auth/login.js";
 
-    let modalOpen = false;
-    let modalRegister = false;
-    let modalLogIn = false;
+    const register = (e) => {
+        e.preventDefault();
 
-    const registerSpawn = () => {
-        if (modalOpen) return;
-        modalRegister = true;
-        modalLogIn = false;
-        modalOpen = true;
+        registerPopup();
     };
 
-    const logInSpawn = () => {
-        if (modalOpen) return;
-        modalRegister = false;
-        modalLogIn = true;
-        modalOpen = true;
-    };
+    const login = (e) => {
+        e.preventDefault();
 
-    const modalClose = () => {
-        modalOpen = false;
-        modalRegister = false;
-        modalLogIn = false;
+        loginPopup();
     };
 </script>
 
@@ -41,27 +29,15 @@
         <button
             type="button"
             class="authButton self-center rounded-lg p-2 mx-2"
-            on:click={registerSpawn}>Register</button
+            on:click={register}>Register</button
         >
         <button
             type="button"
             class="authButton self-center rounded-lg p-2 mx-2"
-            on:click={logInSpawn}>Log In</button
+            on:click={login}>Log In</button
         >
     </div>
 </div>
-
-{#if modalOpen}
-    {#if modalRegister}
-        <RegisterModal {modalClose} />
-    {:else if modalLogIn}
-        <LoginModal {modalClose} />
-    {:else}
-        <script>
-            console.log("Something Wrong With The Modal!");
-        </script>
-    {/if}
-{/if}
 
 <style>
     #header {

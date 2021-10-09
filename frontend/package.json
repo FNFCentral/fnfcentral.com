@@ -23,6 +23,7 @@
         "snowpack": "^3.3.7",
         "svelte": "^3.42.4",
         "svelte-fa": "^2.3.3",
+        "sweetalert2": "^11.1.7",
         "tailwindcss": "^2.2.8"
     }
 }
