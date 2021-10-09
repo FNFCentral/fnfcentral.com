@@ -101,7 +101,7 @@
                         name="tag"
                         id="tag_input"
                         type="text"
-                        placeholder="MyTag"
+                        placeholder="Boyfriend"
                     />
                 </div>
                 <div id="email_holder">
