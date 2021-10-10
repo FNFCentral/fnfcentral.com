@@ -5,12 +5,19 @@ services:
 
     nginx:
         build: ./testing_nginx
+        depends_on:
+            - frontend
+            - raw
+            - kratos
+            - byebyemail
         ports:
             - 80:80
             - 443:443
 
     nginx-exporter:
         image: nginx/nginx-prometheus-exporter
+        depends_on:
+            - nginx
         command: -nginx.scrape-uri=http://nginx:8080/status
 
     raw:
@@ -18,11 +25,16 @@ services:
 
     kratos-migrate:
         build: ./kratos
+        depends_on:
+            - sqldb
         command: migrate --config /home/ory/kratos.yml sql -e --yes
         restart: on-failure
 
     kratos:
         build: ./kratos
+        depends_on:
+            - kratos-migrate
+            - sqldb
         command: serve --watch-courier --config /home/ory/kratos.yml
         environment:
             LOG_LEAK_SENSITIVE_VALUES: "true"
@@ -46,21 +58,32 @@ services:
 
     postgres-exporter:
         image: quay.io/prometheuscommunity/postgres-exporter
+        depends_on:
+            - sqldb
         environment:
             DATA_SOURCE_NAME: postgresql://postgres:password@sqldb:5432/postgres?sslmode=allow
             PG_EXPORTER_AUTO_DISCOVER_DATABASES: "true"
 
     prometheus:
         build: ./metrics
+        depends_on:
+            - nginx-exporter
+            - kratos
+            - postgres-exporter
+            - promscale
 
     promscale:
         image: timescale/promscale
+        depends_on:
+            - sqldb
         environment:
             PROMSCALE_DB_CONNECT_RETRIES: 10
             PROMSCALE_DB_URI: postgres://postgres:password@sqldb:5432/postgres?sslmode=allow
 
     grafana:
         image: grafana/grafana
+        depends_on:
+            - prometheus
         volumes:
             - grafana-data:/var/lib/grafana
 
