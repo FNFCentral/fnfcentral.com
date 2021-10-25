@@ -1,0 +1,12 @@
+tasks:
+  - name: Certificates
+    init: |
+      cd ./scripts/
+      sh certs.sh
+    command: |
+      cd ./scripts/
+      sh trustCerts.sh
+  - name: Hosts
+    command: |
+      cd ./scripts/
+      sh hosts.sh
