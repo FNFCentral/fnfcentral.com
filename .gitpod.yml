@@ -7,6 +7,4 @@ tasks:
       cd ./scripts/
       sh trustCerts.sh
   - name: Hosts
-    command: |
-      cd ./scripts/
-      sh hosts.sh
+    init: sudo sh -c "echo 127.0.0.1 fnfcentral.com analytics.fnfcentral.com api.fnfcentral.com metrics.fnfcentral.com raw.fnfcentral.com user.fnfcentral.com >> /etc/hosts"

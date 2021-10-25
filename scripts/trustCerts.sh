@@ -1,5 +1,5 @@
 #!/bin/sh
 
-cp ../testing_nginx/certs/myCA.pem /usr/local/share/ca-certificates/myCA.pem
+cp ../testing_nginx/certs/myCA.pem /etc/ssl/certs/myCA.pem
 
 update-ca-certificates
