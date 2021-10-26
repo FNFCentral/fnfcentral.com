@@ -1,0 +1,14 @@
+{
+    "name": "@fnfcentral/api",
+    "private": true,
+    "license": "Apache-2.0",
+    "scripts": {
+        "start": "node app"
+    },
+    "dependencies": {
+        "express": "4.17.1"
+    },
+    "devDependencies": {
+        "prisma": "^3.3.0"
+    }
+}
