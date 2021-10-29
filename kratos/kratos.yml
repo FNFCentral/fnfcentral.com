@@ -77,3 +77,6 @@ serve:
 courier:
     smtp:
         connection_uri: smtps://test:test@byebyemail:1025/?skip_ssl_verify=true&legacy_ssl=true
+
+session:
+    lifespan: 720h
