@@ -7,7 +7,7 @@ export default () => {
         showConfirmButton: false,
     });
 
-    fetch("https://user.fnfcentral.com/self-service/login/browser", {
+    fetch("https://user.fnfcentral.com/self-service/registration/browser", {
         method: "GET",
         mode: "cors",
         cache: "no-cache",

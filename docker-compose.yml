@@ -5,6 +5,19 @@ services:
 
     api:
         build: ./api
+        depends_on:
+            - api-migrate
+            - sqldb
+        environment:
+            DATABASE_URL: postgresql://postgres:password@sqldb:5432/postgres?sslmode=allow&schema=api
+
+    api-migrate:
+        build: ./api
+        command: npx prisma migrate deploy
+        depends_on:
+            - sqldb
+        environment:
+            DATABASE_URL: postgresql://postgres:password@sqldb:5432/postgres?sslmode=allow&schema=api
 
     nginx:
         build: ./testing_nginx

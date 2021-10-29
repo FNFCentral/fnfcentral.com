@@ -1,8 +1,9 @@
 const express = require("express");
+
+const score = require("./score");
+
 const router = express.Router();
 
-router.get("/score", function (req, res) {
-    res.send("Coming Soon");
-});
+router.use("/score", score);
 
 module.exports = router;

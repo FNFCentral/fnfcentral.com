@@ -4,13 +4,16 @@
 
     import { params, metatags } from "@roxi/routify";
 
+    import submitScore from "../../api/submitScorce";
+    import getCurUserTopScores from "../../api/getCurUserTopScores";
+
     $: {
-        metatags.title = "Play " + gameID;
+        metatags.title = "Play " + modID;
     }
 
-    $: gameID = $params.gameID;
+    $: modID = $params.modID;
 
-    // Fullscreen crap
+    // Fullscreen Craps
     function makeFullscreen() {
         let elem = document.getElementById("game");
 
@@ -32,7 +35,7 @@
 
     window.addEventListener(
         "message",
-        (event) => {
+        async (event) => {
             console.log(JSON.stringify(event.data) + " from " + event.origin);
 
             switch (event.data.purpose) {
@@ -66,6 +69,7 @@
                                 [1, 1],
                                 [2, 2],
                             ]),
+                            topScores: await getCurUserTopScores({ modID }),
                         },
                         event.origin
                     );
@@ -92,6 +96,13 @@
                             event.data.diffID,
                         ...gameLog,
                     ];
+                    submitScore({
+                        modID,
+                        songID: event.data.songID,
+                        diffID: event.data.diffID,
+                        score: event.data.score,
+                        pass: true,
+                    });
                     break;
 
                 case "song_fail":
@@ -104,6 +115,13 @@
                             event.data.diffID,
                         ...gameLog,
                     ];
+                    submitScore({
+                        modID,
+                        songID: event.data.songID,
+                        diffID: event.data.diffID,
+                        score: event.data.score,
+                        pass: false,
+                    });
                     break;
 
                 case "hit":
@@ -141,7 +159,7 @@
     );
 </script>
 
-<p>Playing Game {gameID}</p>
+<p>Playing Game {modID}</p>
 
 <div id="gameContainer">
     <div
@@ -153,11 +171,11 @@
     </div>
     <iframe
         id="game"
-        src="https://raw.fnfcentral.com/{gameID}"
+        src="https://raw.fnfcentral.com/{modID}"
         allowfullscreen
         allow="fullscreen"
         loading="lazy"
-        title="Game {gameID}"
+        title="Game {modID}"
         class="z-0"
     />
 </div>
