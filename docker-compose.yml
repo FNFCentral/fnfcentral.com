@@ -40,6 +40,15 @@ services:
     raw:
         build: ./testing_raw
 
+    minio:
+        image: quay.io/minio/minio
+        command: server /data --console-address ":9001"
+        volumes:
+            - raw-data:/data
+        ports:
+            - 9000:9000
+            - 9001:9001
+
     kratos-migrate:
         build: ./kratos
         depends_on:
@@ -105,7 +114,7 @@ services:
             - grafana-data:/var/lib/grafana
 
 volumes:
-    raw-games:
+    raw-data:
 
     sqldb-data:
 
