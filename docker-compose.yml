@@ -10,6 +10,12 @@ services:
             - sqldb
         environment:
             DATABASE_URL: postgresql://postgres:password@sqldb:5432/postgres?sslmode=allow&schema=api
+            LDAP_URL: ldap://ldap:389
+            LDAP_BIND_DN: cn=admin,dc=fnfcentral,dc=com
+            LDAP_BIND_PASS: admin_pass
+            LDAP_SEARCH_BASE: dc=fnfcentral,dc=com
+            LDAP_SEARCH_FILTER: (cn={{username}})
+            JWT_SECRET: superSecret
 
     api-migrate:
         build: ./api
@@ -40,14 +46,33 @@ services:
     raw:
         build: ./testing_raw
 
+    ldap:
+        build: ./testing_ldap
+        environment:
+            LDAP_ADMIN_PASSWORD: admin_pass
+            LDAP_BASE_DN: dc=fnfcentral,dc=com
+        ports:
+            - 389:389
+        volumes:
+            - ldap_data:/var/lib/ldap
+            - ldap_config:/etc/ldap/slapd.d
+
+    ldap_admin:
+        image: osixia/phpldapadmin:0.7.2
+        ports:
+            - 8090:80
+        environment:
+            PHPLDAPADMIN_LDAP_HOSTS: ldap
+            PHPLDAPADMIN_HTTPS: "false"
+
     minio:
         image: quay.io/minio/minio
         command: server /data --console-address ":9001"
         environment:
             MINIO_ROOT_USER: minio
-            MINIO_ROOT_PASSWORD: minio
+            MINIO_ROOT_PASSWORD: minio123
         volumes:
-            - raw-data:/data
+            - raw_data:/data
         ports:
             - 9000:9000
             - 9001:9001
@@ -83,7 +108,7 @@ services:
         environment:
             POSTGRES_PASSWORD: password
         volumes:
-            - sqldb-data:/var/lib/postgresql/data
+            - sqldb_data:/var/lib/postgresql/data
 
     postgres-exporter:
         image: quay.io/prometheuscommunity/postgres-exporter
@@ -114,11 +139,15 @@ services:
         depends_on:
             - prometheus
         volumes:
-            - grafana-data:/var/lib/grafana
+            - grafana_data:/var/lib/grafana
 
 volumes:
-    raw-data:
+    raw_data:
 
-    sqldb-data:
+    sqldb_data:
 
-    grafana-data:
+    grafana_data:
+
+    ldap_data:
+
+    ldap_config:

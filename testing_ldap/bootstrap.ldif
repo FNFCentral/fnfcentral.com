@@ -1,0 +1,36 @@
+# Add Billy
+dn: cn=billy,dc=fnfcentral,dc=com
+changetype: add
+uid: billy
+cn: billy
+sn: 3
+objectClass: top
+objectClass: posixAccount
+objectClass: inetOrgPerson
+loginShell: /bin/bash
+homeDirectory: /home/billy
+uidNumber: 14583102
+gidNumber: 14564100
+userPassword: billy_boi
+mail: billy@fnfcentral.com
+gecos: Billy User
+
+### Create Base Group
+dn: ou=groups,dc=fnfcentral,dc=com
+changetype: add
+objectclass:organizationalunit
+ou: groups
+description: Base Groups Branch
+
+# Create Devs group
+dn: cn=devs,ou=groups,dc=fnfcentral,dc=com
+changetype: add
+objectClass: top
+objectClass: posixGroup
+gidNumber: 678
+
+# Assing Billy to Devs
+dn: cn=devs,ou=groups,dc=fnfcentral,dc=com
+changetype: modify
+add: memberuid
+memberuid: billy
