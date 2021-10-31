@@ -4,29 +4,36 @@ const router = Router();
 const prisma = require("../database");
 
 router.getAsync("/byID", async (req, res) => {
-    const body = req.body;
+    const query = req.query;
 
     const score = await prisma.score.findUnique({
         where: {
-            scoreID: body.scoreID,
+            scoreID: query.scoreID,
+        },
+        include: {
+            diff: { include: { song: { include: { mod: true } } } },
         },
     });
 
-    res.send({ score: score });
+    res.send({ score });
 });
 
 router.getAsync("/user/top/mod", async (req, res) => {
-    const body = req.body;
+    const query = req.query;
 
     const scores = await prisma.score.findMany({
-        distinct: ["songID", "diffID"],
+        distinct: ["diffID"],
         orderBy: {
             score: "desc",
         },
         where: {
-            userID: body.userID,
-            modID: body.modID,
+            userID: query.userID,
             pass: true,
+            diff: {
+                song: {
+                    modID: query.modID,
+                },
+            },
         },
     });
 

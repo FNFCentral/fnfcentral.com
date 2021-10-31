@@ -10,5 +10,8 @@
             "database": "postgres",
             "password": "password"
         }
-    ]
+    ],
+    "[prisma]": {
+        "editor.defaultFormatter": "Prisma.prisma"
+    }
 }

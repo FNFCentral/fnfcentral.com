@@ -9,8 +9,6 @@ router.postAsync("/submit", async (req, res) => {
     const score = await prisma.score.create({
         data: {
             userID: body.userID,
-            modID: body.modID,
-            songID: body.songID,
             diffID: body.diffID,
             score: body.score,
             pass: body.pass || true,

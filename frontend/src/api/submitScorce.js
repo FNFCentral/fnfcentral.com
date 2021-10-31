@@ -34,7 +34,7 @@ export default async ({ modID, songID, diffID, score, pass }) => {
                         songID,
                         diffID,
                         score,
-                        pass: pass || true,
+                        pass,
                     })
                 );
             });

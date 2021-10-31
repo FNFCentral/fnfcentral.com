@@ -39,6 +39,7 @@ router.post(
 
 router.get("/verify", (req, res) => {
     auth.verifyToken(req.cookies.admin_jwt);
+
     res.send({ status: "ok" });
 });
 

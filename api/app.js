@@ -2,7 +2,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 
 const v0 = require("./v0");
-const p = require("./p");
+const i = require("./i");
 const a = require("./a");
 
 const app = express();
@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/v0", v0);
-app.use("/p", p);
+app.use("/i", i);
 app.use("/a", a);
 
 app.listen(port, () => {

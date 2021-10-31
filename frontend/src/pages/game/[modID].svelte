@@ -1,19 +1,23 @@
 <script>
+    import { onMount } from "svelte";
+    import { params, metatags } from "@roxi/routify";
+
+    import axios from "axios";
     import Fa from "svelte-fa/src/fa.svelte";
     import { faExpand } from "@fortawesome/free-solid-svg-icons";
-
-    import { params, metatags } from "@roxi/routify";
 
     import submitScore from "../../api/submitScorce";
     import getCurUserTopScores from "../../api/getCurUserTopScores";
 
     $: {
-        metatags.title = "Play " + modID;
+        metatags.title = "Playing " + mod;
     }
 
     $: modID = $params.modID;
+    let modData = { name: "", songs: [] };
+    $: mod = modData.name;
 
-    // Fullscreen Craps
+    // Fullscreen Crap
     function makeFullscreen() {
         let elem = document.getElementById("game");
 
@@ -27,6 +31,42 @@
             elem.msRequestFullscreen();
         }
     }
+
+    onMount(async () => {
+        const rawData = (
+            await axios.get("https://api.fnfcentral.com/v0/mod/allData", {
+                params: {
+                    modID,
+                },
+            })
+        ).data;
+
+        console.log("Found Data On Mod: " + JSON.stringify(rawData));
+
+        if (!rawData.mod) return;
+
+        const songs = [];
+
+        rawData.mod.songs.forEach((song) => {
+            const diffs = [];
+
+            song.diffs.forEach((diff) => {
+                diffs.push({
+                    diffID: diff.diffID,
+                    internalNumber: diff.internalNumber,
+                });
+            });
+
+            songs.push({
+                songID: song.songID,
+                intenalName: song.internalName,
+                diffs,
+            });
+        });
+
+        modData.name = rawData.mod.name;
+        modData.songs = songs;
+    });
 
     // Game Interaction
     $: gameScore = 0;
@@ -43,32 +83,7 @@
                     event.source.postMessage(
                         {
                             purpose: "set_ID_data",
-                            songIDs: new Map([
-                                ["Tutorial", 0],
-                                ["Bopeebo", 1],
-                                ["Fresh", 2],
-                                ["Dadbattle", 3],
-                                ["Spookeez", 4],
-                                ["South", 5],
-                                ["Monster", 6],
-                                ["Pico", 7],
-                                ["Philly", 8],
-                                ["Blammed", 9],
-                                ["Satin-Panties", 10],
-                                ["High", 11],
-                                ["Milf", 12],
-                                ["Cocoa", 13],
-                                ["Eggnog", 14],
-                                ["Winter-Horrorland", 15],
-                                ["Senpai", 16],
-                                ["Roses", 17],
-                                ["Thorns", 18],
-                            ]),
-                            difficultyIDs: new Map([
-                                [0, 0],
-                                [1, 1],
-                                [2, 2],
-                            ]),
+                            songs: modData.songs,
                             topScores: await getCurUserTopScores({ modID }),
                         },
                         event.origin
@@ -159,7 +174,7 @@
     );
 </script>
 
-<p>Playing Game {modID}</p>
+<p>Playing Game {mod}</p>
 
 <div id="gameContainer">
     <div

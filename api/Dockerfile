@@ -10,6 +10,6 @@ RUN npm ci --include=dev
 
 COPY ./ /api/
 
-RUN npx prisma generate
+RUN npm run generate
 
 CMD [ "npm", "run", "start" ] 
