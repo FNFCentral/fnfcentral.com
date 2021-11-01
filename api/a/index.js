@@ -3,6 +3,7 @@ const express = require("express"),
     LdapStrategy = require("passport-ldapauth");
 
 const mod = require("./mod");
+const file = require("./file");
 const auth = require("./auth");
 
 const router = express.Router();
@@ -20,6 +21,7 @@ const OPTS = {
 passport.use(new LdapStrategy(OPTS));
 router.use(passport.initialize());
 
+router.use("/file", file);
 router.use("/mod", mod);
 
 router.post(

@@ -11,6 +11,7 @@ model Mod {
   modID String @id
   songs Song[]
   name  String
+  cid   String
 }
 
 model Song {

@@ -16,6 +16,8 @@ services:
             LDAP_SEARCH_BASE: dc=fnfcentral,dc=com
             LDAP_SEARCH_FILTER: (cn={{username}})
             JWT_SECRET: superSecret
+            IPFS_CLIENT_API: ipfs0:5001
+            IPFS_CLUSTER_API: cluster0:9094
 
     api-migrate:
         build: ./api
@@ -30,9 +32,9 @@ services:
         depends_on:
             - frontend
             - api
-            - raw
             - kratos
             - byebyemail
+            - ipfs0
         ports:
             - 80:80
             - 443:443
@@ -61,18 +63,6 @@ services:
         environment:
             PHPLDAPADMIN_LDAP_HOSTS: ldap
             PHPLDAPADMIN_HTTPS: "false"
-
-    minio:
-        image: quay.io/minio/minio
-        command: server /data --console-address ":9001"
-        environment:
-            MINIO_ROOT_USER: minio
-            MINIO_ROOT_PASSWORD: minio123
-        volumes:
-            - raw_data:/data
-        ports:
-            - 9000:9000
-            - 9001:9001
 
     kratos-migrate:
         build: ./kratos

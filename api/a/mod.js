@@ -4,17 +4,15 @@ const router = Router();
 const auth = require("./auth");
 const prisma = require("../database");
 
-router.getAsync("/all", async (req, res) => {
-    auth.verifyToken(req.cookies.admin_jwt);
+router.use(auth.middleware);
 
+router.getAsync("/all", async (req, res) => {
     const mods = await prisma.mod.findMany({});
 
     res.send({ mods });
 });
 
 router.getAsync("/allData", async (req, res) => {
-    auth.verifyToken(req.cookies.admin_jwt);
-
     const mods = await prisma.mod.findMany({
         include: { songs: { include: { diffs: true } } },
     });
@@ -23,8 +21,6 @@ router.getAsync("/allData", async (req, res) => {
 });
 
 router.postAsync("/create", async (req, res) => {
-    auth.verifyToken(req.cookies.admin_jwt);
-
     const body = req.body;
 
     const songs = [];
@@ -50,6 +46,7 @@ router.postAsync("/create", async (req, res) => {
         data: {
             modID: body.modID,
             name: body.name,
+            cid: body.cid,
             songs: { create: songs },
         },
     });

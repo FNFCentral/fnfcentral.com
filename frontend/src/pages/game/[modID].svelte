@@ -14,8 +14,9 @@
     }
 
     $: modID = $params.modID;
-    let modData = { name: "", songs: [] };
-    $: mod = modData.name;
+    let modData = { songs: [] };
+    $: mod = "";
+    $: cid = "0";
 
     // Fullscreen Crap
     function makeFullscreen() {
@@ -64,8 +65,9 @@
             });
         });
 
-        modData.name = rawData.mod.name;
+        name = rawData.mod.name;
         modData.songs = songs;
+        cid = rawData.mod.cid;
     });
 
     // Game Interaction
@@ -174,7 +176,7 @@
     );
 </script>
 
-<p>Playing Game {mod}</p>
+<p>Playing Mod {mod}</p>
 
 <div id="gameContainer">
     <div
@@ -186,11 +188,11 @@
     </div>
     <iframe
         id="game"
-        src="https://raw.fnfcentral.com/{modID}"
+        src="https://raw.fnfcentral.com/{cid}"
         allowfullscreen
-        allow="fullscreen"
+        allow="fullscreen gamepad"
         loading="lazy"
-        title="Game {modID}"
+        title="Mod {mod}"
         class="z-0"
     />
 </div>
