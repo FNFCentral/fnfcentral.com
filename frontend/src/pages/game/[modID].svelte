@@ -114,8 +114,6 @@
                         ...gameLog,
                     ];
                     submitScore({
-                        modID,
-                        songID: event.data.songID,
                         diffID: event.data.diffID,
                         score: event.data.score,
                         pass: true,
@@ -133,8 +131,6 @@
                         ...gameLog,
                     ];
                     submitScore({
-                        modID,
-                        songID: event.data.songID,
                         diffID: event.data.diffID,
                         score: event.data.score,
                         pass: false,

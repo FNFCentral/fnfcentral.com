@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default async ({ modID, songID, diffID, score, pass }) => {
+export default async ({ diffID, score, pass }) => {
     return new Promise((res, rej) => {
         fetch("https://user.fnfcentral.com/sessions/whoami", {
             method: "GET",
@@ -30,8 +30,6 @@ export default async ({ modID, songID, diffID, score, pass }) => {
                 res(
                     axios.post("https://api.fnfcentral.com/p/score/submit", {
                         userID,
-                        modID,
-                        songID,
                         diffID,
                         score,
                         pass,
