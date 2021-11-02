@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default async ({ userID, modID }) => {
-    const topScores = axios.get(
+    const topScores = await axios.get(
         "https://api.fnfcentral.com/v0/score/user/top/mod",
         {
             params: { userID, modID },

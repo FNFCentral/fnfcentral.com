@@ -59,13 +59,12 @@
             });
 
             songs.push({
-                songID: song.songID,
-                intenalName: song.internalName,
+                internalName: song.internalName,
                 diffs,
             });
         });
 
-        name = rawData.mod.name;
+        mod = rawData.mod.name;
         modData.songs = songs;
         cid = rawData.mod.cid;
     });
@@ -84,7 +83,7 @@
                 case "register":
                     event.source.postMessage(
                         {
-                            purpose: "set_ID_data",
+                            purpose: "set_mod_data",
                             songs: modData.songs,
                             topScores: await getCurUserTopScores({ modID }),
                         },
@@ -95,20 +94,13 @@
                 case "song_start":
                     gameScore = 0;
                     gameCombo = 0;
-                    gameLog = [
-                        "Song Started!  SongID: " +
-                            event.data.songID +
-                            " DiffID: " +
-                            event.data.diffID,
-                    ];
+                    gameLog = ["Song Started!  DiffID: " + event.data.diffID];
                     break;
 
                 case "song_pass":
                     gameLog = [
                         "Song Passed!  Score: " +
                             event.data.score +
-                            " SongID: " +
-                            event.data.songID +
                             " DiffID: " +
                             event.data.diffID,
                         ...gameLog,
@@ -124,8 +116,6 @@
                     gameLog = [
                         "Song Failed.  :C  Score: " +
                             event.data.score +
-                            " SongID: " +
-                            event.data.songID +
                             " DiffID: " +
                             event.data.diffID,
                         ...gameLog,

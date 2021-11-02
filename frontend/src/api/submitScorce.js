@@ -28,7 +28,7 @@ export default async ({ diffID, score, pass }) => {
                 }
 
                 res(
-                    axios.post("https://api.fnfcentral.com/p/score/submit", {
+                    axios.post("https://api.fnfcentral.com/i/score/submit", {
                         userID,
                         diffID,
                         score,
