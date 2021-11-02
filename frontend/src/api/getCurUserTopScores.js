@@ -14,7 +14,7 @@ export default async ({ modID }) => {
         })
             .then((initResponse) => {
                 if (!initResponse.ok) {
-                    throw new Error(initResponse.statusText);
+                    return { identity: {} };
                 }
 
                 return initResponse.json();
