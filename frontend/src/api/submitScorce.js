@@ -25,16 +25,20 @@ export default async ({ diffID, score, pass }) => {
                 if (!userID) {
                     console.log("Score Not Saved As Player Not Logged In");
                     res();
+                } else {
+                    res(
+                        axios.post(
+                            "https://api.fnfcentral.com/i/score/submit",
+                            {
+                                userID,
+                                diffID,
+                                score,
+                                pass,
+                            },
+                            { withCredentials: true }
+                        )
+                    );
                 }
-
-                res(
-                    axios.post("https://api.fnfcentral.com/i/score/submit", {
-                        userID,
-                        diffID,
-                        score,
-                        pass,
-                    })
-                );
             });
     });
 };

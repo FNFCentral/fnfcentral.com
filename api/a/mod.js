@@ -35,6 +35,8 @@ router.postAsync("/create", async (req, res) => {
             });
         });
 
+        console.log(song);
+
         songs.push({
             name: song.name,
             internalName: song.name,

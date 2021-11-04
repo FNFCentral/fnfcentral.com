@@ -5,6 +5,7 @@ export default async ({ userID, modID }) => {
         "https://api.fnfcentral.com/v0/score/user/top/mod",
         {
             params: { userID, modID },
+            withCredentials: true,
         }
     );
 

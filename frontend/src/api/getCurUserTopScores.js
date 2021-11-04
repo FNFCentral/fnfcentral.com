@@ -25,9 +25,9 @@ export default async ({ modID }) => {
                 if (!userID) {
                     console.log("Scores Not Loaded As Player Not Logged In");
                     res([]);
+                } else {
+                    res(getUserTopScores({ userID, modID }));
                 }
-
-                res(getUserTopScores({ userID, modID }));
             });
     });
 };

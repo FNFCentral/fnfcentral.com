@@ -12,13 +12,13 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use(function (req, res, next) {
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Origin", req.headers.origin || "*");
 
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
 
     res.setHeader(
         "Access-Control-Allow-Headers",
-        "Accept,Authorization,Content-Type,Cookie"
+        "Accept, Authorization, Content-Type, Cookie"
     );
 
     res.setHeader("Access-Control-Allow-Credentials", true);

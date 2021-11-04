@@ -80,3 +80,5 @@ courier:
 
 session:
     lifespan: 720h
+    cookie:
+        domain: fnfcentral.com

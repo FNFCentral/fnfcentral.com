@@ -39,6 +39,7 @@
                 params: {
                     modID,
                 },
+                withCredentials: true,
             })
         ).data;
 

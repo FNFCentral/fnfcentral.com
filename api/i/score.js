@@ -2,6 +2,9 @@ const { Router } = require("@awaitjs/express");
 const router = Router();
 
 const prisma = require("../database");
+const auth = require("./auth");
+
+router.use(auth.middleware);
 
 router.postAsync("/submit", async (req, res) => {
     const body = req.body;
