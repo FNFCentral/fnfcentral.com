@@ -23,7 +23,7 @@ export default async ({ diffID, score, pass }) => {
                 const userID = initResponseJSON.identity.id;
 
                 if (!userID) {
-                    console.log("Score Not Saved As Player Not Logged In");
+                    console.warning("Score Not Saved As Player Not Logged In");
                     res();
                 } else {
                     res(

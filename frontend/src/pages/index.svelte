@@ -4,4 +4,4 @@
 
 <p>Epic Gaming!</p>
 
-<a href={$url("./game/123")}> Link to game 123! </a>
+<a href={$url("./game/fnf")}> Link to the og! </a>
