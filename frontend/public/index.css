@@ -5,5 +5,15 @@ body {
 
 @font-face {
     font-family: aAnotherTag;
-    src: url("/aAnotherTag.otf") format("opentype");
+    src: url("/fonts/aAnotherTag.otf") format("opentype");
+}
+
+@font-face {
+    font-family: zenKurenaido;
+    src: url("/fonts/Zen_Kurenaido/ZenKurenaido-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: domine;
+    src: url("/fonts/Domine/Domine-VariableFont_wght.ttf") format("truetype");
 }

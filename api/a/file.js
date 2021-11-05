@@ -10,13 +10,19 @@ router.use(auth.middleware);
 router.use(fileUpload());
 
 router.postAsync("/upload", async (req, res) => {
-    const file = req.files.file;
+    const files = req.files;
 
-    console.log("Uploaded: " + file.name);
+    const fileCIDs = {};
 
-    const cid = await cluster.addFile(file.data);
+    for (const file in files) {
+        console.log("Uploaded: " + files[file].name);
 
-    res.send({ cid });
+        const cid = await cluster.addFile(files[file].data);
+
+        fileCIDs[file] = cid;
+    }
+
+    res.send(fileCIDs);
 });
 
 router.postAsync("/uploadDir", async (req, res) => {

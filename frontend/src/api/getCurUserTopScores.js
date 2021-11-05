@@ -23,9 +23,7 @@ export default async ({ modID }) => {
                 const userID = initResponseJSON.identity.id;
 
                 if (!userID) {
-                    console.warning(
-                        "Scores Not Loaded As Player Not Logged In"
-                    );
+                    console.warn("Scores Not Loaded As Player Not Logged In");
                     res([]);
                 } else {
                     res(getUserTopScores({ userID, modID }));

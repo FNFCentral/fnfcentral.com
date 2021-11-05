@@ -6,6 +6,7 @@
     import Fa from "svelte-fa/src/fa.svelte";
     import { faExpand } from "@fortawesome/free-solid-svg-icons";
 
+    import ScoreBanner from "../../banners/ScoreBanner.svelte";
     import submitScore from "../../api/submitScorce";
     import getCurUserTopScores from "../../api/getCurUserTopScores";
 
@@ -74,6 +75,7 @@
     $: gameScore = 0;
     $: gameCombo = 0;
     $: gameLog = [];
+    $: scoreIDs = [];
 
     window.addEventListener(
         "message",
@@ -106,11 +108,18 @@
                             event.data.diffID,
                         ...gameLog,
                     ];
-                    submitScore({
+                    const response = await submitScore({
                         diffID: event.data.diffID,
                         score: event.data.score,
                         pass: true,
                     });
+                    scoreIDs = [
+                        {
+                            entry: scoreIDs.length,
+                            scoreID: response.data.scoreID,
+                        },
+                        ...scoreIDs,
+                    ];
                     break;
 
                 case "song_fail":
@@ -184,15 +193,10 @@
     />
 </div>
 
-<div id="holder_stats">
-    <p>Current Score: {gameScore}</p>
-    <p>Current Combo: {gameCombo}</p>
-    <p>Game Log:</p>
-    <ul class="list-disc list-inside">
-        {#each gameLog as event}
-            <li>{event}</li>
-        {/each}
-    </ul>
+<div id="scoreHolder">
+    {#each scoreIDs as ID (ID.entry)}
+        <ScoreBanner ID={ID.scoreID} />
+    {/each}
 </div>
 
 <style>

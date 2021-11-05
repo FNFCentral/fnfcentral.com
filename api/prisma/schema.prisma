@@ -21,6 +21,7 @@ model Song {
   diffs        Diff[]
   name         String
   internalName String
+  iconCID      String
 }
 
 model Diff {
