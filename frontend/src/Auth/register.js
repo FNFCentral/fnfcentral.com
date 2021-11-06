@@ -1,5 +1,7 @@
 import Swal from "sweetalert2";
 
+import identityStore from "./identityStore";
+
 export default () => {
     Swal.fire({
         title: "Register",
@@ -104,6 +106,7 @@ export default () => {
                         text: "Make Sure To Confirm Your Email!  Check You Spam Folder If You Do Not See The Verification Email!",
                         icon: "success",
                     });
+                    identityStore.refresh();
                 }
             });
         })

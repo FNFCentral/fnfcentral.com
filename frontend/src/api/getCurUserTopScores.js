@@ -1,33 +1,13 @@
 import getUserTopScores from "./getUserTopScores";
+import getCurUser from "./getCurUser";
 
 export default async ({ modID }) => {
-    return new Promise((res, rej) => {
-        fetch("https://user.fnfcentral.com/sessions/whoami", {
-            method: "GET",
-            mode: "cors",
-            cache: "no-cache",
-            headers: {
-                Accept: "application/json",
-            },
-            redirect: "manual",
-            credentials: "include",
-        })
-            .then((initResponse) => {
-                if (!initResponse.ok) {
-                    return { identity: {} };
-                }
+    const userID = (await getCurUser()).id;
 
-                return initResponse.json();
-            })
-            .then((initResponseJSON) => {
-                const userID = initResponseJSON.identity.id;
-
-                if (!userID) {
-                    console.warn("Scores Not Loaded As Player Not Logged In");
-                    res([]);
-                } else {
-                    res(getUserTopScores({ userID, modID }));
-                }
-            });
-    });
+    if (!userID) {
+        console.warn("Scores Not Loaded As Player Not Logged In");
+        return [];
+    } else {
+        return getUserTopScores({ userID, modID });
+    }
 };

@@ -1,5 +1,7 @@
 import Swal from "sweetalert2";
 
+import identityStore from "./identityStore";
+
 export default () => {
     Swal.fire({
         title: "Log In",
@@ -90,6 +92,7 @@ export default () => {
                         text: "Make Sure To Have Fun!",
                         icon: "success",
                     });
+                    identityStore.refresh();
                 }
             });
         })
