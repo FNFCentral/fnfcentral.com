@@ -23,7 +23,7 @@
     });
 </script>
 
-<div id="header" class="fixed flex flex-row z-50">
+<div id="header" class="flex flex-row z-50">
     <div class="flex flex-row flex-none justify-start">
         <a href={$url("/")}>
             <img
