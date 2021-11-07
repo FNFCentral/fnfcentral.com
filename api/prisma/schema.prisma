@@ -8,10 +8,11 @@ datasource db {
 }
 
 model Mod {
-  modID String @id
-  songs Song[]
-  name  String
-  cid   String
+  modID      String      @id
+  songs      Song[]
+  name       String
+  cid        String
+  extraInfos ExtraInfo[]
 }
 
 model Song {
@@ -30,7 +31,7 @@ model Diff {
   songID         Int
   name           String
   internalNumber Int
-  Score          Score[]
+  scores         Score[]
 }
 
 model Score {
@@ -41,4 +42,27 @@ model Score {
   time    DateTime @default(now())
   score   Int
   pass    Boolean  @default(true)
+}
+
+enum ExtraInfoType {
+  BOOL
+  STRING
+  NUMBER
+}
+
+model ExtraInfo {
+  extraInfoID    Int             @id @default(autoincrement())
+  mod            Mod             @relation(fields: [modID], references: [modID])
+  modID          String
+  internalName   String
+  valueType      ExtraInfoType
+  userExtraInfos UserExtraInfo[]
+}
+
+model UserExtraInfo {
+  userExtraInfoID Int       @id @default(autoincrement())
+  userID          String    @db.Uuid
+  extraInfo       ExtraInfo @relation(fields: [extraInfoID], references: [extraInfoID])
+  extraInfoID     Int
+  value           String
 }

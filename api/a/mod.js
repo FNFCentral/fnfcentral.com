@@ -14,7 +14,7 @@ router.getAsync("/all", async (req, res) => {
 
 router.getAsync("/allData", async (req, res) => {
     const mods = await prisma.mod.findMany({
-        include: { songs: { include: { diffs: true } } },
+        include: { songs: { include: { diffs: true } }, extraInfos: true },
     });
 
     res.send({ mods });
@@ -43,12 +43,22 @@ router.postAsync("/create", async (req, res) => {
         });
     });
 
+    const extraInfos = [];
+
+    req.body.extraInfo.forEach((extraInfo) => {
+        extraInfos.push({
+            internalName: extraInfo.internalName,
+            valueType: extraInfo.valueType,
+        });
+    });
+
     const mod = await prisma.mod.create({
         data: {
             modID: body.modID,
             name: body.name,
             cid: body.cid,
             songs: { create: songs },
+            extraInfos: { createMany: { data: extraInfos } },
         },
     });
 

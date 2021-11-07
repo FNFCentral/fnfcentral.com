@@ -13,12 +13,11 @@ const middleware = (req, res, next) => {
     if (req.method === "OPTIONS") {
         next();
     } else {
-        verifySession(req.headers["cookie"], req.body.userID)
+        const userID = req.body.userID || req.query.userID;
+        verifySession(req.headers["cookie"], userID)
             .then(() => next())
             .catch(() => {
-                console.warn(
-                    "Someone is trying to impersonate: " + req.body.userID
-                );
+                console.warn("Someone is trying to impersonate: " + userID);
                 res.sendStatus(401);
             });
     }

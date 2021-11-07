@@ -10,7 +10,7 @@ router.getAsync("/allData", async (req, res) => {
         where: {
             modID: query.modID,
         },
-        include: { songs: { include: { diffs: true } } },
+        include: { songs: { include: { diffs: true } }, extraInfos: true },
     });
 
     res.send({ mod });

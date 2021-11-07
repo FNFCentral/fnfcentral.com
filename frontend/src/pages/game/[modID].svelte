@@ -8,14 +8,16 @@
 
     import ScoreBanner from "../../banners/ScoreBanner.svelte";
     import submitScore from "../../api/submitScorce";
+    import saveUserExtraInfo from "../../api/saveUserExtraInfo";
     import getCurUserTopScores from "../../api/getCurUserTopScores";
+    import getUserExtraInfos from "../../api/getUserExtraInfos";
 
     $: {
         metatags.title = "Playing " + mod;
     }
 
     $: modID = $params.modID;
-    let modData = { songs: [] };
+    let modData = { songs: [], extraInfos: [] };
     $: mod = "";
     $: cid = "0";
 
@@ -66,8 +68,18 @@
             });
         });
 
+        const extraInfos = [];
+
+        rawData.mod.extraInfos.forEach((extraInfo) => {
+            extraInfos.push({
+                extraInfoID: extraInfo.extraInfoID,
+                internalName: extraInfo.internalName,
+            });
+        });
+
         mod = rawData.mod.name;
         modData.songs = songs;
+        modData.extraInfos = extraInfos;
         cid = rawData.mod.cid;
     });
 
@@ -88,7 +100,21 @@
                         {
                             purpose: "set_mod_data",
                             songs: modData.songs,
+                            extraInfos: modData.extraInfos,
+                        },
+                        event.origin
+                    );
+                    event.source.postMessage(
+                        {
+                            purpose: "set_score_data",
                             topScores: await getCurUserTopScores({ modID }),
+                        },
+                        event.origin
+                    );
+                    event.source.postMessage(
+                        {
+                            purpose: "set_extra_info",
+                            userExtraInfos: await getUserExtraInfos({ modID }),
                         },
                         event.origin
                     );
@@ -113,13 +139,15 @@
                         score: event.data.score,
                         pass: true,
                     });
-                    scoreIDs = [
-                        {
-                            entry: scoreIDs.length,
-                            scoreID: response.data.scoreID,
-                        },
-                        ...scoreIDs,
-                    ];
+                    if (response) {
+                        scoreIDs = [
+                            {
+                                entry: scoreIDs.length,
+                                scoreID: response.data.scoreID,
+                            },
+                            ...scoreIDs,
+                        ];
+                    }
                     break;
 
                 case "song_fail":
@@ -165,6 +193,12 @@
                     ];
                     gameScore = event.data.currentScore;
                     gameCombo = event.data.combo;
+                    break;
+                case "save_extra_info":
+                    saveUserExtraInfo({
+                        extraInfoID: event.data.extraInfoID,
+                        value: event.data.value,
+                    });
                     break;
             }
         },

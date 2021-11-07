@@ -21,7 +21,7 @@ export default async () => {
         responseJSON = await response.json();
     }
 
-    console.log("Get Sur User Response: " + responseJSON);
+    console.log("Get Cur User Response: " + responseJSON);
 
     const userIdentity = responseJSON.identity;
 

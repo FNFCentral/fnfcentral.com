@@ -23,9 +23,6 @@ router.getAsync("/user/top/mod", async (req, res) => {
 
     const scores = await prisma.score.findMany({
         distinct: ["diffID"],
-        orderBy: {
-            score: "desc",
-        },
         where: {
             userID: query.userID,
             pass: true,
