@@ -6,11 +6,11 @@
     import Fa from "svelte-fa/src/fa.svelte";
     import { faExpand } from "@fortawesome/free-solid-svg-icons";
 
-    import ScoreBanner from "../../banners/ScoreBanner.svelte";
-    import submitScore from "../../api/submitScorce";
-    import saveUserExtraInfo from "../../api/saveUserExtraInfo";
-    import getCurUserTopScores from "../../api/getCurUserTopScores";
-    import getUserExtraInfos from "../../api/getUserExtraInfos";
+    import ScoreBanner from "$lib/banners/ScoreBanner.svelte";
+    import submitScore from "$lib/api/submitScorce";
+    import saveUserExtraInfo from "$lib/api/saveUserExtraInfo";
+    import getCurUserTopScores from "$lib/api/getCurUserTopScores";
+    import getUserExtraInfos from "$lib/api/getUserExtraInfos";
 
     $: modID = $page.params.modID;
     let modData = { songs: [], extraInfos: [] };

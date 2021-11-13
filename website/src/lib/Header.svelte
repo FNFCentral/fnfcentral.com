@@ -1,9 +1,9 @@
 <script>
     import { onMount } from "svelte";
 
-    import identityStore from "./Auth/identityStore.js";
-    import registerPopup from "./Auth/register.js";
-    import loginPopup from "./Auth/login.js";
+    import identityStore from "$lib/auth/identityStore.js";
+    import registerPopup from "$lib/auth/register.js";
+    import loginPopup from "$lib/auth/login.js";
 
     const register = (e) => {
         e.preventDefault();
