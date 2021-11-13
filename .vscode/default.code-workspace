@@ -5,6 +5,10 @@
             "path": ".."
         },
         {
+            "name": "🚀 website",
+            "path": "..\\website"
+        },
+        {
             "name": "🚀 frontend",
             "path": "..\\frontend"
         },

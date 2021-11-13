@@ -3,6 +3,9 @@ services:
     frontend:
         build: ./frontend
 
+    website:
+        build: ./website
+
     api:
         build: ./api
         depends_on:
