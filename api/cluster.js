@@ -75,7 +75,7 @@ const pinCID = async (cid) => {
 
 const unpinCID = async (cid) => {
     await axios.delete(
-        "http://" + process.env.IPFS_CLUSTER_API + "/pins/" + CID
+        "http://" + process.env.IPFS_CLUSTER_API + "/pins/" + cid
     );
 
     return cid;

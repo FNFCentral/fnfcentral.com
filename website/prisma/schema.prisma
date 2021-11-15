@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Mod {
+  modID      String      @id
+  songs      Song[]
+  name       String
+  cid        String
+  extraInfos ExtraInfo[]
+}
+
+model Song {
+  songID       Int    @id @default(autoincrement())
+  mod          Mod    @relation(fields: [modID], references: [modID])
+  modID        String
+  diffs        Diff[]
+  name         String
+  internalName String
+  iconCID      String
+}
+
+model Diff {
+  diffID         Int     @id @default(autoincrement())
+  song           Song    @relation(fields: [songID], references: [songID])
+  songID         Int
+  name           String
+  internalNumber Int
+  scores         Score[]
+}
+
+model Score {
+  scoreID String   @id @default(uuid()) @db.Uuid
+  userID  String   @db.Uuid
+  diff    Diff     @relation(fields: [diffID], references: [diffID])
+  diffID  Int
+  time    DateTime @default(now())
+  score   Int
+  pass    Boolean  @default(true)
+}
+
+enum ExtraInfoType {
+  BOOL
+  STRING
+  NUMBER
+}
+
+model ExtraInfo {
+  extraInfoID    Int             @id @default(autoincrement())
+  mod            Mod             @relation(fields: [modID], references: [modID])
+  modID          String
+  internalName   String
+  valueType      ExtraInfoType
+  userExtraInfos UserExtraInfo[]
+}
+
+model UserExtraInfo {
+  userExtraInfoID Int       @id @default(autoincrement())
+  userID          String    @db.Uuid
+  extraInfo       ExtraInfo @relation(fields: [extraInfoID], references: [extraInfoID])
+  extraInfoID     Int
+  value           String
+}

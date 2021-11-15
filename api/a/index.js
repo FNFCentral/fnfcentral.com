@@ -35,14 +35,14 @@ router.post(
             httpOnly: true,
             sameSite: "lax",
         });
-        res.send({ status: "ok" });
+        res.sendStatus(200);
     }
 );
 
 router.get("/verify", (req, res) => {
     auth.verifyToken(req.cookies.admin_jwt);
 
-    res.send({ status: "ok" });
+    res.sendStatus(200);
 });
 
 module.exports = router;

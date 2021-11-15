@@ -1,11 +1,5 @@
 FROM node
 
-WORKDIR /ipfs
-
-ADD https://dist.ipfs.io/ipfs-cluster-ctl/v0.14.1/ipfs-cluster-ctl_v0.14.1_linux-amd64.tar.gz /ipfs/
-
-RUN tar -zxvf ipfs-cluster-ctl_v0.14.1_linux-amd64.tar.gz
-
 WORKDIR /api
 
 COPY ./package.json /api/package.json

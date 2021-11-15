@@ -8,6 +8,10 @@ COPY ./package-lock.json /website/package-lock.json
 
 RUN npm ci
 
+COPY ./prisma/ /website/prisma/
+
+RUN npm run generate
+
 COPY ./ /website/
 
 RUN npm run build
@@ -19,6 +23,8 @@ WORKDIR /website
 COPY ./package.json /website/package.json
 
 COPY ./package-lock.json /website/package-lock.json
+
+COPY --from=buildStage /website/node_modules/ /website/node_modules/
 
 COPY --from=buildStage /website/build/ /website/build/
 

@@ -89,7 +89,7 @@
         console.log(JSON.stringify(event.data) + " from " + event.origin);
 
         switch (event.data.purpose) {
-            case "register":
+            case "register": {
                 event.source.postMessage(
                     {
                         purpose: "set_mod_data",
@@ -113,14 +113,16 @@
                     event.origin
                 );
                 break;
+            }
 
-            case "song_start":
+            case "song_start": {
                 gameScore = 0;
                 gameCombo = 0;
                 gameLog = ["Song Started!  DiffID: " + event.data.diffID];
                 break;
+            }
 
-            case "song_pass":
+            case "song_pass": {
                 gameLog = [
                     "Song Passed!  Score: " +
                         event.data.score +
@@ -128,6 +130,7 @@
                         event.data.diffID,
                     ...gameLog,
                 ];
+                console.log(gameLog);
                 const response = await submitScore({
                     diffID: event.data.diffID,
                     score: event.data.score,
@@ -143,8 +146,9 @@
                     ];
                 }
                 break;
+            }
 
-            case "song_fail":
+            case "song_fail": {
                 gameLog = [
                     "Song Failed.  :C  Score: " +
                         event.data.score +
@@ -152,14 +156,16 @@
                         event.data.diffID,
                     ...gameLog,
                 ];
+                console.log(gameLog);
                 submitScore({
                     diffID: event.data.diffID,
                     score: event.data.score,
                     pass: false,
                 });
                 break;
+            }
 
-            case "hit":
+            case "hit": {
                 gameLog = [
                     "Note Hit!  Note Time: " +
                         event.data.noteTime +
@@ -174,8 +180,9 @@
                 gameScore = event.data.currentScore;
                 gameCombo = event.data.combo;
                 break;
+            }
 
-            case "miss":
+            case "miss": {
                 gameLog = [
                     "Note Missed.  :C  Note Time: " +
                         event.data.noteTime +
@@ -188,18 +195,21 @@
                 gameScore = event.data.currentScore;
                 gameCombo = event.data.combo;
                 break;
-            case "save_extra_info":
+            }
+
+            case "save_extra_info": {
                 saveUserExtraInfo({
                     extraInfoID: event.data.extraInfoID,
                     value: event.data.value,
                 });
                 break;
+            }
         }
     };
 </script>
 
 <svelte:head>
-    <title>Playing {mod}</title>
+    <title>{mod} - FNF Central</title>
 </svelte:head>
 
 <svelte:window on:message={handleMessage} />
