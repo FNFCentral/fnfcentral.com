@@ -1,50 +1,30 @@
-<script>
-    import { onMount } from "svelte";
-    import { page } from "$app/stores";
+<script context="module">
+    /** @type {import('@sveltejs/kit').Load} */
+    export async function load({ page, fetch }) {
+        const res = await fetch(
+            `/api/v0/mod/allData?modID=${page.params.modID}`,
+            {
+                method: "GET",
+                credentials: "include",
+            }
+        );
 
-    import axios from "axios";
-    import Fa from "svelte-fa/src/fa.svelte";
-    import { faExpand } from "@fortawesome/free-solid-svg-icons";
-
-    import ScoreBanner from "$lib/banners/ScoreBanner.svelte";
-    import submitScore from "$lib/api/submitScorce";
-    import saveUserExtraInfo from "$lib/api/saveUserExtraInfo";
-    import getCurUserTopScores from "$lib/api/getCurUserTopScores";
-    import getUserExtraInfos from "$lib/api/getUserExtraInfos";
-
-    $: modID = $page.params.modID;
-    let modData = { songs: [], extraInfos: [] };
-    $: mod = "";
-    $: cid = "0";
-
-    // Fullscreen Crap
-    function makeFullscreen() {
-        let elem = document.getElementById("game");
-
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-        } else if (elem.webkitRequestFullscreen) {
-            /* Safari */
-            elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) {
-            /* IE11 */ // I kinda copy pasted this.  This site does NOT like IE.
-            elem.msRequestFullscreen();
+        if (!res.ok) {
+            return {
+                status: res.status,
+                error: new Error(`Mod does not exist ${page.params.modID}`),
+            };
         }
-    }
 
-    onMount(async () => {
-        const rawData = (
-            await axios.get("/api/v0/mod/allData", {
-                params: {
-                    modID,
-                },
-                withCredentials: true,
-            })
-        ).data;
+        const rawData = await res.json();
 
         console.log("Found Data On Mod: " + JSON.stringify(rawData));
 
-        if (!rawData.mod) return;
+        if (!rawData.mod)
+            return {
+                status: 404,
+                error: new Error(`Mod does not exist ${page.params.modID}`),
+            };
 
         const songs = [];
 
@@ -73,11 +53,46 @@
             });
         });
 
-        mod = rawData.mod.name;
-        modData.songs = songs;
-        modData.extraInfos = extraInfos;
-        cid = rawData.mod.cid;
-    });
+        return {
+            props: {
+                modID: rawData.mod.name,
+                modData: { songs, extraInfos },
+                mod: rawData.mod.name,
+                cid: rawData.mod.cid,
+            },
+        };
+    }
+</script>
+
+<script>
+    import Fa from "svelte-fa/src/fa.svelte";
+    import { faExpand } from "@fortawesome/free-solid-svg-icons";
+
+    import ScoreBanner from "$lib/banners/ScoreBanner.svelte";
+    import submitScore from "$lib/api/submitScorce";
+    import saveUserExtraInfo from "$lib/api/saveUserExtraInfo";
+    import getCurUserTopScores from "$lib/api/getCurUserTopScores";
+    import getUserExtraInfos from "$lib/api/getUserExtraInfos";
+
+    export let modID = "";
+    export let modData = { songs: [], extraInfos: [] };
+    export let mod = "";
+    export let cid = "0";
+
+    // Fullscreen Crap
+    function makeFullscreen() {
+        let elem = document.getElementById("game");
+
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) {
+            /* Safari */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+            /* IE11 */ // I kinda copy pasted this.  This site does NOT like IE.
+            elem.msRequestFullscreen();
+        }
+    }
 
     // Game Interaction
     $: gameScore = 0;
