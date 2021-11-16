@@ -16,15 +16,12 @@
 
     onMount(async () => {
         if (ID) {
-            const reponse = await axios.get(
-                "https://api.fnfcentral.com/v0/score/byID",
-                {
-                    params: {
-                        scoreID: ID,
-                    },
-                    withCredentials: true,
-                }
-            );
+            const reponse = await axios.get("/api/v0/score/byID", {
+                params: {
+                    scoreID: ID,
+                },
+                withCredentials: true,
+            });
             const data = reponse.data.score;
 
             songData = {

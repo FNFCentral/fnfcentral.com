@@ -10,7 +10,7 @@ export default async ({ extraInfoID, value }) => {
     } else {
         return (
             await axios.post(
-                "https://api.fnfcentral.com/i/extraInfo/save",
+                "/api/i/extraInfo/save",
                 {
                     extraInfoID,
                     userID,

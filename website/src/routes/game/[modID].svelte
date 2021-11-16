@@ -34,7 +34,7 @@
 
     onMount(async () => {
         const rawData = (
-            await axios.get("https://api.fnfcentral.com/v0/mod/allData", {
+            await axios.get("/api/v0/mod/allData", {
                 params: {
                     modID,
                 },

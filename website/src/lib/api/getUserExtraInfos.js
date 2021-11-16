@@ -10,7 +10,7 @@ export default async ({ modID }) => {
         return [];
     } else {
         return (
-            await axios.get("https://api.fnfcentral.com/i/extraInfo/load/mod", {
+            await axios.get("/api/i/extraInfo/load/mod", {
                 params: { userID, modID },
                 withCredentials: true,
             })
