@@ -5,6 +5,9 @@ services:
 
     website:
         build: ./website
+        depends_on:
+            - website-migrate
+            - sqldb
         environment:
             DATABASE_URL: postgresql://postgres:password@sqldb:5432/postgres?sslmode=allow&schema=api
             LDAP_URL: ldap://ldap:389
@@ -15,6 +18,14 @@ services:
             JWT_SECRET: superSecret
             IPFS_CLIENT_API: ipfs0:5001
             IPFS_CLUSTER_API: cluster0:9094
+
+    website-migrate:
+        build: ./website
+        command: npx prisma migrate deploy
+        depends_on:
+            - sqldb
+        environment:
+            DATABASE_URL: postgresql://postgres:password@sqldb:5432/postgres?sslmode=allow&schema=api
 
     api:
         build: ./api
@@ -31,14 +42,6 @@ services:
             JWT_SECRET: superSecret
             IPFS_CLIENT_API: ipfs0:5001
             IPFS_CLUSTER_API: cluster0:9094
-
-    api-migrate:
-        build: ./api
-        command: npx prisma migrate deploy
-        depends_on:
-            - sqldb
-        environment:
-            DATABASE_URL: postgresql://postgres:password@sqldb:5432/postgres?sslmode=allow&schema=api
 
     nginx:
         build: ./testing_nginx
