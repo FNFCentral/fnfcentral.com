@@ -1,3 +1,8 @@
+<script>
+    import Fa from "svelte-fa/src/fa.svelte";
+    import { faMusic } from "@fortawesome/free-solid-svg-icons";
+</script>
+
 <div id="footer" class="footerBox">
     <div id="linkWall" class="flex flex-row justify-around">
         <div class="flex flex-col items-start">
@@ -28,8 +33,10 @@
             <a href={"/credits"}>The Team</a>
         </div>
     </div>
-    <div class="flex flex-row justify-start bottomText">
-        <p>FNF Central is owned and operated by&nbsp;</p>
+    <div class="flex flex-row justify-start items-center bottomText">
+        <p>FNF Central is made with&nbsp;</p>
+        <Fa icon={faMusic} />
+        <p>&nbsp;by&nbsp;</p>
         <a href="https://dualvs.com" target="_blank" rel="noopener noreferrer"
             >Dual Vipers LLC</a
         >
@@ -50,7 +57,9 @@
     }
 
     .bottomText {
-        margin-top: 10px;
+        padding-top: 10px;
         font-size: 12px;
+        padding-left: 5px;
+        padding-bottom: 5px;
     }
 </style>
