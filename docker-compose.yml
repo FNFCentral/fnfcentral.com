@@ -1,8 +1,5 @@
 version: "3.9"
 services:
-    frontend:
-        build: ./frontend
-
     website:
         image: fnfcentral/website:local
         depends_on:
@@ -27,21 +24,6 @@ services:
             - sqldb
         environment:
             DATABASE_URL: postgresql://postgres:password@sqldb:5432/postgres?sslmode=allow&schema=api
-
-    api:
-        build: ./api
-        depends_on:
-            - sqldb
-        environment:
-            DATABASE_URL: postgresql://postgres:password@sqldb:5432/postgres?sslmode=allow&schema=api
-            LDAP_URL: ldap://ldap:389
-            LDAP_BIND_DN: cn=admin,dc=fnfcentral,dc=com
-            LDAP_BIND_PASS: admin_pass
-            LDAP_SEARCH_BASE: dc=fnfcentral,dc=com
-            LDAP_SEARCH_FILTER: (cn={{username}})
-            JWT_SECRET: superSecret
-            IPFS_CLIENT_API: ipfs0:5001
-            IPFS_CLUSTER_API: cluster0:9094
 
     nginx:
         build: ./testing_nginx
