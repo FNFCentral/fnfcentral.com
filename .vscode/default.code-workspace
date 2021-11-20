@@ -5,16 +5,16 @@
             "path": ".."
         },
         {
-            "name": "🚀 website",
-            "path": "..\\website"
+            "name": "🚀 api",
+            "path": "..\\api"
         },
         {
             "name": "🚀 frontend",
             "path": "..\\frontend"
         },
         {
-            "name": "✨ api",
-            "path": "..\\api"
+            "name": "🚀 website",
+            "path": "..\\website"
         }
     ],
     "settings": {

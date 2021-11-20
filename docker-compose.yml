@@ -4,12 +4,16 @@ services:
         build: ./frontend
 
     website:
-        build: ./website
+        build: 
+            context: ./website
+            args:
+                MODE: deploy
         depends_on:
             - website-migrate
             - sqldb
         environment:
             DATABASE_URL: postgresql://postgres:password@sqldb:5432/postgres?sslmode=allow&schema=api
+            KRATOS_URL: kratos:4433
             LDAP_URL: ldap://ldap:389
             LDAP_BIND_DN: cn=admin,dc=fnfcentral,dc=com
             LDAP_BIND_PASS: admin_pass
@@ -85,6 +89,14 @@ services:
         depends_on:
             - sqldb
         command: migrate --config /home/ory/kratos.yml sql -e --yes
+        environment:
+            DSN: "postgres://postgres:password@sqldb:5432/postgres?sslmode=allow"
+            SELFSERVICE_DEFAULT_BROWSER_RETURN_URL: "https://fnfcentral.com/dashboard"
+            SELFSERVICE_WHITELISTED_RETURN_URLS: "https://fnfcentral.com"
+            SERVE_PUBLIC_BASE_URL: "https://user.fnfcentral.com"
+            COURIER_SMTP_CONNECTION_URI: "smtps://test:test@byebyemail:1025/?skip_ssl_verify=true&legacy_ssl=true"
+            COURIER_SMTP_FROM_ADDRESS: "no-reply@fnfcentral.com"
+            SESSION_COOKIE_DOMAIN: "fnfcentral.com"
         restart: on-failure
 
     kratos:
@@ -94,6 +106,13 @@ services:
             - sqldb
         command: serve --watch-courier --config /home/ory/kratos.yml
         environment:
+            DSN: "postgres://postgres:password@sqldb:5432/postgres?sslmode=allow"
+            SELFSERVICE_DEFAULT_BROWSER_RETURN_URL: "https://fnfcentral.com/dashboard"
+            SELFSERVICE_WHITELISTED_RETURN_URLS: "https://fnfcentral.com"
+            SERVE_PUBLIC_BASE_URL: "https://user.fnfcentral.com"
+            COURIER_SMTP_CONNECTION_URI: "smtps://test:test@byebyemail:1025/?skip_ssl_verify=true&legacy_ssl=true"
+            COURIER_SMTP_FROM_ADDRESS: "no-reply@fnfcentral.com"
+            SESSION_COOKIE_DOMAIN: "fnfcentral.com"
             LOG_LEAK_SENSITIVE_VALUES: "true"
         ports:
             - 4434:4434

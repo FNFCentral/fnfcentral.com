@@ -1,17 +1,16 @@
+import { userURL } from "../modeData";
+
 export default async () => {
-    const response = await fetch(
-        "https://user.fnfcentral.com/sessions/whoami",
-        {
-            method: "GET",
-            mode: "cors",
-            cache: "no-cache",
-            headers: {
-                Accept: "application/json",
-            },
-            redirect: "manual",
-            credentials: "include",
-        }
-    );
+    const response = await fetch("https://" + userURL + "/sessions/whoami", {
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache",
+        headers: {
+            Accept: "application/json",
+        },
+        redirect: "manual",
+        credentials: "include",
+    });
 
     let responseJSON;
 

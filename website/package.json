@@ -6,7 +6,7 @@
         "dev:migrate": "cross-env DATABASE_URL=\"postgresql://postgres:password@localhost:5555/postgres?sslmode=allow&schema=api\" prisma migrate dev",
         "generate": "npx prisma generate",
         "migrate": "prisma migrate deploy",
-        "build": "svelte-kit build",
+        "build": "cross-env MODE=\"deploy\" svelte-kit build",
         "preview": "svelte-kit preview",
         "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
         "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."

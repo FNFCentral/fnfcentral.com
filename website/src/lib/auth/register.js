@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 
+import { userURL } from "../modeData";
 import identityStore from "./identityStore";
 
 export default () => {
@@ -9,7 +10,7 @@ export default () => {
         showConfirmButton: false,
     });
 
-    fetch("https://user.fnfcentral.com/self-service/registration/browser", {
+    fetch("https://" + userURL + "/self-service/registration/browser", {
         method: "GET",
         mode: "cors",
         cache: "no-cache",

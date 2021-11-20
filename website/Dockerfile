@@ -1,5 +1,7 @@
 FROM node as buildStage
 
+ARG MODE
+
 WORKDIR /website
 
 COPY ./package.json /website/package.json

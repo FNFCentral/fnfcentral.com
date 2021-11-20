@@ -3,12 +3,10 @@ version: v0.7.3-alpha.1
 identity:
     default_schema_url: "file:///home/ory/user.schema.json"
 
-dsn: "postgres://postgres:password@sqldb:5432/postgres?sslmode=allow"
+dsn: ""
 
 selfservice:
     default_browser_return_url: https://fnfcentral.com/dashboard
-    whitelisted_return_urls:
-        - https://fnfcentral.com/
 
     methods:
         password:
@@ -17,43 +15,27 @@ selfservice:
             enabled: true
 
     flows:
-        error:
-            ui_url: https://fnfcentral.com/auth/error
-
         settings:
-            ui_url: https://fnfcentral.com/settings
             privileged_session_max_age: 15m
 
         recovery:
             enabled: true
-            ui_url: https://fnfcentral.com/recovery
 
         verification:
             enabled: true
-            ui_url: https://fnfcentral.com/verify
-            after:
-                default_browser_return_url: https://fnfcentral.com/
-
-        logout:
-            after:
-                default_browser_return_url: https://fnfcentral.com/
 
         login:
-            ui_url: https://fnfcentral.com/auth/login
-            lifespan: 10m
+            lifespan: 720h
 
         registration:
-            lifespan: 10m
-            ui_url: https://fnfcentral.com/auth/registration
+            lifespan: 720h
             after:
-                default_browser_return_url: https://fnfcentral.com/dashboard
                 password:
                     hooks:
                         - hook: session
 
 serve:
     public:
-        base_url: https://user.fnfcentral.com
         cors:
             enabled: true
             allowed_origins:
@@ -74,11 +56,5 @@ serve:
                 - Content-Type
                 - Set-Cookie
 
-courier:
-    smtp:
-        connection_uri: smtps://test:test@byebyemail:1025/?skip_ssl_verify=true&legacy_ssl=true
-
 session:
     lifespan: 720h
-    cookie:
-        domain: fnfcentral.com

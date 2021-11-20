@@ -1,5 +1,15 @@
 export const get = async () => {
     return {
-        body: { currentVersion: 0, experimentalVersion: 0, minVersion: 0 },
+        body: {
+            version: {
+                currentVersion: 0,
+                experimentalVersion: 0,
+                minVersion: 0,
+            },
+            mode: {
+                local: process.env["LOCAL"] ? true : false,
+                canary: process.env["CANARY"] ? true : false,
+            },
+        },
     };
 };

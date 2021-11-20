@@ -1,8 +1,9 @@
 import axios from "axios";
+import { userURL } from "../modeData";
 
 export default async ({ diffID, score, pass }) => {
     return new Promise((res) => {
-        fetch("https://user.fnfcentral.com/sessions/whoami", {
+        fetch("https://" + userURL + "/sessions/whoami", {
             method: "GET",
             mode: "cors",
             cache: "no-cache",

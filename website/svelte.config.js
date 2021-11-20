@@ -15,6 +15,9 @@ const config = {
                 port: "PORT",
             },
         }),
+        vite: {
+            mode: process.env.MODE || "development",
+        },
     },
 
     preprocess: [

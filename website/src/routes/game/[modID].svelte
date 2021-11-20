@@ -73,6 +73,7 @@
     import saveUserExtraInfo from "$lib/api/saveUserExtraInfo";
     import getCurUserTopScores from "$lib/api/getCurUserTopScores";
     import getUserExtraInfos from "$lib/api/getUserExtraInfos";
+    import { rawURL } from "$lib/modeData";
 
     export let modID = "";
     export let modData = { songs: [], extraInfos: [] };
@@ -241,7 +242,7 @@
     </div>
     <iframe
         id="game"
-        src="https://raw.fnfcentral.com/{cid}"
+        src="https://{rawURL}/{cid}"
         allowfullscreen
         allow="fullscreen gamepad"
         loading="lazy"

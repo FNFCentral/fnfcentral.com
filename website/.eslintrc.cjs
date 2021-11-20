@@ -12,4 +12,5 @@ module.exports = {
         es2017: true,
         node: true,
     },
+    ignorePatterns: ["/src/lib/modeData.js"],
 };

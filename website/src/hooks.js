@@ -2,6 +2,7 @@
 export const handle = async ({ request, resolve }) => {
     const response = await resolve(request);
 
+    // CORS Headers For API
     if (request.path.startsWith("/api")) {
         response.headers["Access-Control-Allow-Origin"] =
             request.headers["origin"] || "*";
