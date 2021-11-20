@@ -1,0 +1,9 @@
+FROM osixia/openldap
+
+local:
+    ENV LDAP_ORGANISATION="FNF Central"
+    ENV LDAP_DOMAIN="fnfcentral.com"
+
+    COPY bootstrap.ldif /container/service/slapd/assets/config/bootstrap/ldif/50-bootstrap.ldif
+
+    SAVE IMAGE fnfcentral/testing_ldap:local

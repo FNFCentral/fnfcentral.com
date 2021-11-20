@@ -1,0 +1,40 @@
+FROM node
+
+WORKDIR /website
+
+build:
+    ARG MODE
+
+    RUN echo "Building Mode: $MODE"
+
+    COPY package.json package.json
+    COPY package-lock.json package-lock.json
+
+    RUN npm ci --include=dev
+
+    COPY prisma/ prisma/
+
+    RUN npm run generate
+
+    COPY . .
+
+    RUN npm run build
+
+    SAVE ARTIFACT build /build AS LOCAL ./build
+    SAVE ARTIFACT node_modules/.prisma /generated_prisma AS LOCAL ./node_modules/.prisma
+
+local:
+    ARG MODE
+
+    COPY package.json package.json
+    COPY package-lock.json package-lock.json
+
+    RUN npm ci --include=dev
+
+    COPY +build/generated_prisma /website/node_modules/.prisma
+    COPY prisma/ prisma/
+    COPY +build/build build/
+
+    CMD [ "node", "build" ]
+
+    SAVE IMAGE fnfcentral/website:local

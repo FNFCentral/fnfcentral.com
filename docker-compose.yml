@@ -4,10 +4,7 @@ services:
         build: ./frontend
 
     website:
-        build: 
-            context: ./website
-            args:
-                MODE: deploy
+        image: fnfcentral/website:local
         depends_on:
             - website-migrate
             - sqldb
@@ -24,7 +21,7 @@ services:
             IPFS_CLUSTER_API: cluster0:9094
 
     website-migrate:
-        build: ./website
+        image: fnfcentral/website:local
         command: npx prisma migrate deploy
         depends_on:
             - sqldb
@@ -34,7 +31,6 @@ services:
     api:
         build: ./api
         depends_on:
-            - api-migrate
             - sqldb
         environment:
             DATABASE_URL: postgresql://postgres:password@sqldb:5432/postgres?sslmode=allow&schema=api
@@ -66,7 +62,7 @@ services:
         command: -nginx.scrape-uri=http://nginx:8080/status
 
     ldap:
-        build: ./testing_ldap
+        image: fnfcentral/testing_ldap:local
         environment:
             LDAP_ADMIN_PASSWORD: admin_pass
             LDAP_BASE_DN: dc=fnfcentral,dc=com
@@ -85,7 +81,7 @@ services:
             PHPLDAPADMIN_HTTPS: "false"
 
     kratos-migrate:
-        build: ./kratos
+        image: fnfcentral/kratos:local
         depends_on:
             - sqldb
         command: migrate --config /home/ory/kratos.yml sql -e --yes
@@ -100,7 +96,7 @@ services:
         restart: on-failure
 
     kratos:
-        build: ./kratos
+        image: fnfcentral/kratos:local
         depends_on:
             - kratos-migrate
             - sqldb
@@ -141,7 +137,7 @@ services:
             PG_EXPORTER_AUTO_DISCOVER_DATABASES: "true"
 
     prometheus:
-        build: ./metrics
+        image: fnfcentral/metrics:local
         depends_on:
             - nginx-exporter
             - kratos
