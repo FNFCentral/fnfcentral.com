@@ -6,16 +6,19 @@ export default async (request) => {
 
     const userID = body.userID || request.query.get("userID");
 
-    const response = await fetch(`http://kratos:4433/sessions/whoami`, {
-        method: "GET",
-        headers: {
-            cookie:
-                "ory_kratos_session=" +
-                    cookie.parse(request.headers.cookie || "")[
-                        "ory_kratos_session"
-                    ] || "",
-        },
-    });
+    const response = await fetch(
+        `http://` + process.env["KRATOS_URL"] + `/sessions/whoami`,
+        {
+            method: "GET",
+            headers: {
+                cookie:
+                    "ory_kratos_session=" +
+                        cookie.parse(request.headers.cookie || "")[
+                            "ory_kratos_session"
+                        ] || "",
+            },
+        }
+    );
 
     if (!response.ok) {
         console.warn("Someone is trying to impersonate: " + userID);
