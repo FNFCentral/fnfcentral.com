@@ -6,6 +6,8 @@
     import Fa from "svelte-fa/src/fa.svelte";
     import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
+    import { rawURL } from "$lib/modeData";
+
     export let imageURL;
     const height = 50;
     const width = 600;
@@ -41,8 +43,7 @@
             };
 
             if (!imageURL)
-                imageURL =
-                    "https://raw.fnfcentral.com/" + data.diff.song.iconCID;
+                imageURL = "https://" + rawURL + "/" + data.diff.song.iconCID;
         }
     });
 </script>

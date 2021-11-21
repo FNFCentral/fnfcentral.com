@@ -4,9 +4,7 @@ WORKDIR /website
 
 build:
     ARG MODE
-
-    RUN echo "Building Mode: $MODE"
-
+    
     COPY package.json package.json
     COPY package-lock.json package-lock.json
 
