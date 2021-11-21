@@ -9,7 +9,17 @@ export const post = async (request) => {
         return { status: 401 };
     }
 
-    await pinCID(request.body.cid);
+    if (Array.isArray(request.body.cid)) {
+        await Promise.all(
+            request.body.cid.map(async (cid) => {
+                console.log("Pinning " + cid);
+                await pinCID(cid);
+            })
+        );
+    } else {
+        console.log("Pinning " + request.body.cid);
+        await pinCID(request.body.cid);
+    }
 
     return { status: 200 };
 };

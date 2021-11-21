@@ -9,7 +9,17 @@ export const del = async (request) => {
         return { status: 401 };
     }
 
-    await unpinCID(request.body.cid);
+    if (Array.isArray(request.body.cid)) {
+        await Promise.all(
+            request.body.cid.map(async (cid) => {
+                console.log("Unpinning " + cid);
+                await unpinCID(cid);
+            })
+        );
+    } else {
+        console.log("Unpinning " + request.body.cid);
+        await unpinCID(request.body.cid);
+    }
 
     return { status: 200 };
 };
