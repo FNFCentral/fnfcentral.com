@@ -5,6 +5,7 @@ services:
         depends_on:
             - website-migrate
             - sqldb
+            - questdb
         environment:
             DATABASE_URL: postgresql://postgres:password@sqldb:5432/postgres?sslmode=allow&schema=api
             KRATOS_URL: kratos:4433
@@ -102,13 +103,23 @@ services:
             - 4437:4437
 
     sqldb:
-        image: timescale/timescaledb:latest-pg12
+        image: postgres:14-alpine
         ports:
             - 5555:5432
         environment:
             POSTGRES_PASSWORD: password
         volumes:
             - sqldb_data:/var/lib/postgresql/data
+
+    questdb:
+        image: questdb/questdb
+        ports:
+            - 9000:9000
+            - 9009:9009
+            - 8812:8812
+            - 9003:9003
+        volumes:
+            - questdb_data:/root/.questdb/
 
     postgres-exporter:
         image: quay.io/prometheuscommunity/postgres-exporter
@@ -124,15 +135,6 @@ services:
             - nginx-exporter
             - kratos
             - postgres-exporter
-            - promscale
-
-    promscale:
-        image: timescale/promscale
-        depends_on:
-            - sqldb
-        environment:
-            PROMSCALE_DB_CONNECT_RETRIES: 10
-            PROMSCALE_DB_URI: postgres://postgres:password@sqldb:5432/postgres?sslmode=allow
 
     grafana:
         image: grafana/grafana
@@ -189,6 +191,8 @@ services:
 
 volumes:
     sqldb_data:
+
+    questdb_data:
 
     grafana_data:
 

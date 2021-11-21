@@ -13,9 +13,3 @@ scrape_configs:
       metrics_path: /metrics/prometheus
       static_configs:
           - targets: ["kratos:4434"]
-
-remote_write:
-    - url: http://promscale:9201/write
-remote_read:
-    - url: http://promscale:9201/read
-      read_recent: true
