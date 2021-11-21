@@ -10,5 +10,5 @@ COPY ./proxy.conf /etc/nginx/proxy.conf
 COPY ./https.conf /etc/nginx/https.conf
 
 # Certs
-COPY ./certs/fnfcentral.com.crt /etc/nginx/certs/fnfcentral.com.crt
-COPY ./certs/fnfcentral.com.key /etc/nginx/certs/fnfcentral.com.key
+COPY ./certs/local.fnfcentral.com.crt /etc/nginx/certs/local.fnfcentral.com.crt
+COPY ./certs/local.fnfcentral.com.key /etc/nginx/certs/local.fnfcentral.com.key

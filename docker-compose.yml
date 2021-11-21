@@ -29,7 +29,7 @@ services:
         build: ./testing_nginx
         depends_on:
             - frontend
-            - api
+            - website
             - kratos
             - byebyemail
             - ipfs0
@@ -69,12 +69,12 @@ services:
         command: migrate --config /home/ory/kratos.yml sql -e --yes
         environment:
             DSN: "postgres://postgres:password@sqldb:5432/postgres?sslmode=allow"
-            SELFSERVICE_DEFAULT_BROWSER_RETURN_URL: "https://fnfcentral.com/dashboard"
-            SELFSERVICE_WHITELISTED_RETURN_URLS: "https://fnfcentral.com"
-            SERVE_PUBLIC_BASE_URL: "https://user.fnfcentral.com"
+            SELFSERVICE_DEFAULT_BROWSER_RETURN_URL: "https://local.fnfcentral.com/dashboard"
+            SELFSERVICE_WHITELISTED_RETURN_URLS: "https://local.fnfcentral.com"
+            SERVE_PUBLIC_BASE_URL: "https://user.local.fnfcentral.com"
             COURIER_SMTP_CONNECTION_URI: "smtps://test:test@byebyemail:1025/?skip_ssl_verify=true&legacy_ssl=true"
-            COURIER_SMTP_FROM_ADDRESS: "no-reply@fnfcentral.com"
-            SESSION_COOKIE_DOMAIN: "fnfcentral.com"
+            COURIER_SMTP_FROM_ADDRESS: "no-reply@local.fnfcentral.com"
+            SESSION_COOKIE_DOMAIN: "local.fnfcentral.com"
         restart: on-failure
 
     kratos:
@@ -85,12 +85,12 @@ services:
         command: serve --watch-courier --config /home/ory/kratos.yml
         environment:
             DSN: "postgres://postgres:password@sqldb:5432/postgres?sslmode=allow"
-            SELFSERVICE_DEFAULT_BROWSER_RETURN_URL: "https://fnfcentral.com/dashboard"
-            SELFSERVICE_WHITELISTED_RETURN_URLS: "https://fnfcentral.com"
-            SERVE_PUBLIC_BASE_URL: "https://user.fnfcentral.com"
+            SELFSERVICE_DEFAULT_BROWSER_RETURN_URL: "https://local.fnfcentral.com/dashboard"
+            SELFSERVICE_WHITELISTED_RETURN_URLS: "https://local.fnfcentral.com"
+            SERVE_PUBLIC_BASE_URL: "https://user.local.fnfcentral.com"
             COURIER_SMTP_CONNECTION_URI: "smtps://test:test@byebyemail:1025/?skip_ssl_verify=true&legacy_ssl=true"
-            COURIER_SMTP_FROM_ADDRESS: "no-reply@fnfcentral.com"
-            SESSION_COOKIE_DOMAIN: "fnfcentral.com"
+            COURIER_SMTP_FROM_ADDRESS: "no-reply@local.fnfcentral.com"
+            SESSION_COOKIE_DOMAIN: "local.fnfcentral.com"
             LOG_LEAK_SENSITIVE_VALUES: "true"
         ports:
             - 4434:4434

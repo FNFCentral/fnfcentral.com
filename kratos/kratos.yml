@@ -39,8 +39,8 @@ serve:
         cors:
             enabled: true
             allowed_origins:
-                - https://example.org
-                - https://*.example.org
+                - "https://local.fnfcentral.com"
+                - "https://*.local.fnfcentral.com"
             allowed_methods:
                 - POST
                 - GET
