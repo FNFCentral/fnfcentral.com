@@ -8,7 +8,12 @@ export const get = async (request) => {
         where: {
             modID: query.get("modID"),
         },
-        include: { songs: { include: { diffs: true } }, extraInfos: true },
+        include: {
+            songs: { include: { diffs: true } },
+            extraInfos: true,
+            settings: true,
+            globalSettingMaps: true,
+        },
     });
 
     return { body: { mod } };

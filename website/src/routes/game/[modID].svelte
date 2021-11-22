@@ -53,10 +53,29 @@
             });
         });
 
+        const settings = [];
+
+        rawData.mod.settings.forEach((setting) => {
+            settings.push({
+                settingID: setting.settingID,
+                internalName: setting.internalName,
+                global: false,
+            });
+        });
+
+        rawData.mod.globalSettingMaps.forEach((setting) => {
+            settings.push({
+                settingID: setting.globalSettingID,
+                internalName: setting.internalName,
+                global: true,
+                value: null,
+            });
+        });
+
         return {
             props: {
-                modID: rawData.mod.name,
-                modData: { songs, extraInfos },
+                modID: rawData.mod.modID,
+                modData: { songs, extraInfos, settings },
                 mod: rawData.mod.name,
                 cid: rawData.mod.cid,
             },
@@ -73,10 +92,12 @@
     import saveUserExtraInfo from "$lib/api/saveUserExtraInfo";
     import getCurUserTopScores from "$lib/api/getCurUserTopScores";
     import getUserExtraInfos from "$lib/api/getUserExtraInfos";
+    import getUserSettings from "$lib/api/getUserSettings";
+    import saveUserSetting from "$lib/api/saveUserSetting";
     import { rawURL } from "$lib/modeData";
 
     export let modID = "";
-    export let modData = { songs: [], extraInfos: [] };
+    export let modData = { songs: [], extraInfos: [], settings: [] };
     export let mod = "";
     export let cid = "0";
 
@@ -111,6 +132,7 @@
                         purpose: "set_mod_data",
                         songs: modData.songs,
                         extraInfos: modData.extraInfos,
+                        settings: modData.settings,
                     },
                     event.origin
                 );
@@ -125,6 +147,13 @@
                     {
                         purpose: "set_extra_info",
                         userExtraInfos: await getUserExtraInfos({ modID }),
+                    },
+                    event.origin
+                );
+                event.source.postMessage(
+                    {
+                        purpose: "set_settings",
+                        userSettings: await getUserSettings({ modID }),
                     },
                     event.origin
                 );
@@ -216,6 +245,15 @@
             case "save_extra_info": {
                 saveUserExtraInfo({
                     extraInfoID: event.data.extraInfoID,
+                    value: event.data.value,
+                });
+                break;
+            }
+
+            case "save_setting": {
+                saveUserSetting({
+                    settingID: event.data.settingID,
+                    global: event.data.global,
                     value: event.data.value,
                 });
                 break;

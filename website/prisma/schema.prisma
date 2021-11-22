@@ -8,11 +8,13 @@ datasource db {
 }
 
 model Mod {
-  modID      String      @id
-  songs      Song[]
-  name       String
-  cid        String
-  extraInfos ExtraInfo[]
+  modID             String             @id
+  songs             Song[]
+  name              String
+  cid               String
+  extraInfos        ExtraInfo[]
+  settings          Setting[]
+  globalSettingMaps GlobalSettingMap[]
 }
 
 model Song {
@@ -65,4 +67,45 @@ model UserExtraInfo {
   extraInfo       ExtraInfo @relation(fields: [extraInfoID], references: [extraInfoID])
   extraInfoID     Int
   value           String
+}
+
+model GlobalSetting {
+  globalSettingID    Int                 @id @default(autoincrement())
+  userGlobalSettings UserGlobalSetting[]
+  globalSettingMaps  GlobalSettingMap[]
+  name               String
+}
+
+model UserGlobalSetting {
+  userGlobalSettingID Int           @id @default(autoincrement())
+  userID              String        @db.Uuid
+  globalSetting       GlobalSetting @relation(fields: [globalSettingID], references: [globalSettingID])
+  globalSettingID     Int
+  value               String
+}
+
+model GlobalSettingMap {
+  globalSettingMapID Int           @id @default(autoincrement())
+  globalSetting      GlobalSetting @relation(fields: [globalSettingID], references: [globalSettingID])
+  globalSettingID    Int
+  mod                Mod           @relation(fields: [modID], references: [modID])
+  modID              String
+  internalName       String
+}
+
+model Setting {
+  settingID    Int           @id @default(autoincrement())
+  mod          Mod           @relation(fields: [modID], references: [modID])
+  modID        String
+  name         String
+  internalName String
+  userSettings UserSetting[]
+}
+
+model UserSetting {
+  userSettingID Int     @id @default(autoincrement())
+  userID        String  @db.Uuid
+  setting       Setting @relation(fields: [settingID], references: [settingID])
+  settingID     Int
+  value         String
 }

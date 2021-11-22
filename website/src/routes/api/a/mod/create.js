@@ -40,6 +40,24 @@ export const post = async (request) => {
         });
     });
 
+    const settings = [];
+
+    body.settings.forEach((setting) => {
+        settings.push({
+            name: setting.name,
+            internalName: setting.internalName,
+        });
+    });
+
+    const globalSettingMaps = [];
+
+    body.globalSettings.forEach((globalSetting) => {
+        globalSettingMaps.push({
+            globalSettingID: globalSetting.globalSettingID,
+            internalName: globalSetting.internalName,
+        });
+    });
+
     const mod = await prisma.mod.create({
         data: {
             modID: body.modID,
@@ -47,6 +65,8 @@ export const post = async (request) => {
             cid: body.cid,
             songs: { create: songs },
             extraInfos: { createMany: { data: extraInfos } },
+            settings: { createMany: { data: settings } },
+            globalSettingMaps: { createMany: { data: globalSettingMaps } },
         },
     });
 
