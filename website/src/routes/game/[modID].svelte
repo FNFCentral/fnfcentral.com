@@ -258,6 +258,13 @@
                 });
                 break;
             }
+
+            case "state": {
+                console.log(
+                    "State Update Recieved At Time " + event.data.currentTime
+                );
+                break;
+            }
         }
     };
 </script>
