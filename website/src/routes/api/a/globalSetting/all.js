@@ -9,14 +9,7 @@ export const get = async (request) => {
         return { status: 401 };
     }
 
-    const mods = await prisma.mod.findMany({
-        include: {
-            songs: { include: { diffs: true } },
-            extraInfos: true,
-            settings: true,
-            globalSettingMaps: true,
-        },
-    });
+    const globalSettings = await prisma.globalSetting.findMany({});
 
-    return { body: { mods } };
+    return { body: { globalSettings } };
 };

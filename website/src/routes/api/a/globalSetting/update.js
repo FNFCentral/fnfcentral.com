@@ -1,10 +1,8 @@
 import adminAuth from "../../_adminAuth";
 import prisma from "../../_database";
 
-import generateModData from "../../_generateModData";
-
 /** @type {import('@sveltejs/kit').RequestHandler} */
-export const post = async (request) => {
+export const put = async (request) => {
     const authResponse = await adminAuth(request);
 
     if (!authResponse) {
@@ -13,11 +11,11 @@ export const post = async (request) => {
 
     const body = request.body;
 
-    const modData = generateModData(body);
-
-    const mod = await prisma.mod.create({
-        data: modData,
+    const globalSetting = await prisma.globalSetting.upsert({
+        where: { globalSettingID: body.globalSettingID || -1 },
+        update: { name: body.name },
+        create: { name: body.name },
     });
 
-    return { body: { mod } };
+    return { body: { globalSetting } };
 };

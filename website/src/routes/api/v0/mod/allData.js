@@ -12,7 +12,7 @@ export const get = async (request) => {
             songs: { include: { diffs: true } },
             extraInfos: true,
             settings: true,
-            globalSettingMaps: true,
+            globalSettingMaps: { include: { globalSetting: true } },
         },
     });
 
