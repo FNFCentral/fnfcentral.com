@@ -12,8 +12,8 @@ export const post = async (request) => {
     return {
         headers: {
             "set-cookie": cookie.serialize("admin_jwt", createToken(), {
-                expires: new Date(3600000 + Date.now()),
-                maxAge: 3600000,
+                expires: new Date(3600 + Date.now()),
+                maxAge: 3600,
                 secure: true,
                 httpOnly: true,
                 sameSite: "lax",
