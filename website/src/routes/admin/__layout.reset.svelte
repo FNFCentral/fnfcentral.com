@@ -61,7 +61,7 @@
             Swal.fire({
                 title: "Login Failure",
                 icon: "error",
-                text: `Login Failed: ${error}`,
+                text: `Login Failed`,
             });
         }
     };
