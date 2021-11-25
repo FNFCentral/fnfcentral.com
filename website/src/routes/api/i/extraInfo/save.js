@@ -1,6 +1,8 @@
 import userAuth from "../../_userAuth";
 import prisma from "../../_database";
 
+import { extraInfoChangesProcessed } from "../../_metrics";
+
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const post = async (request) => {
     const authResponse = await userAuth(request);
@@ -8,6 +10,8 @@ export const post = async (request) => {
     if (!authResponse) {
         return { status: 401 };
     }
+
+    extraInfoChangesProcessed.inc();
 
     const body = request.body;
 
@@ -54,6 +58,7 @@ export const post = async (request) => {
         console.log(
             `Update ${body.extraInfoID} for user ${body.userID} to ${newUserExtraInfo.value}`
         );
+
         return { body: { userExtraInfo: newUserExtraInfo } };
     } catch {
         const userExtraInfo = await prisma.userExtraInfo.create({
@@ -67,6 +72,7 @@ export const post = async (request) => {
         console.log(
             `Created ${body.extraInfoID} for user ${body.userID} to ${userExtraInfo.value}`
         );
+
         return { body: { userExtraInfo: userExtraInfo } };
     }
 };

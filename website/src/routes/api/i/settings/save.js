@@ -1,5 +1,6 @@
 import userAuth from "../../_userAuth";
 import prisma from "../../_database";
+import { settingChangesProcessed } from "../../_metrics";
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const post = async (request) => {
@@ -8,6 +9,8 @@ export const post = async (request) => {
     if (!authResponse) {
         return { status: 401 };
     }
+
+    settingChangesProcessed.inc();
 
     const body = request.body;
 
