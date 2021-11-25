@@ -61,7 +61,7 @@
 <style>
     #header {
         width: 100%;
-        height: 72px;
+        height: 100px;
         background-color: #ff1cb0;
         color: #3643c3;
         font-family: aAnotherTag;
