@@ -5,4 +5,4 @@ WORKDIR /etc/prometheus
 local:
     COPY prometheus.yml .
 
-    SAVE IMAGE fnfcentral/metrics:local
+    SAVE IMAGE dualvs/fnfcentral-metrics:local

@@ -35,4 +35,4 @@ local:
 
     CMD [ "node", "build" ]
 
-    SAVE IMAGE fnfcentral/website:local
+    SAVE IMAGE dualvs/fnfcentral:local

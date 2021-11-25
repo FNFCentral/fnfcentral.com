@@ -6,4 +6,4 @@ local:
 
     COPY bootstrap.ldif /container/service/slapd/assets/config/bootstrap/ldif/50-bootstrap.ldif
 
-    SAVE IMAGE fnfcentral/testing_ldap:local
+    SAVE IMAGE dualvs/fnfcentral-testing_ldap:local

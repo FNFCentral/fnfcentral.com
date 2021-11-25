@@ -1,7 +1,7 @@
 version: "3.9"
 services:
     website:
-        image: fnfcentral/website:local
+        image: dualvs/fnfcentral:local
         depends_on:
             - website-migrate
             - sqldb
@@ -19,7 +19,7 @@ services:
             IPFS_CLUSTER_API: cluster0:9094
 
     website-migrate:
-        image: fnfcentral/website:local
+        image: dualvs/fnfcentral:local
         command: npx prisma migrate deploy
         depends_on:
             - sqldb
@@ -45,7 +45,7 @@ services:
         command: -nginx.scrape-uri=http://nginx:8080/status
 
     ldap:
-        image: fnfcentral/testing_ldap:local
+        image: dualvs/fnfcentral-testing_ldap:local
         environment:
             LDAP_ADMIN_PASSWORD: admin_pass
             LDAP_BASE_DN: dc=fnfcentral,dc=com
@@ -64,7 +64,7 @@ services:
             PHPLDAPADMIN_HTTPS: "false"
 
     kratos-migrate:
-        image: fnfcentral/kratos:local
+        image: dualvs/fnfcentral-kratos:local
         depends_on:
             - sqldb
         command: migrate --config /home/ory/kratos.yml sql -e --yes
@@ -79,7 +79,7 @@ services:
         restart: on-failure
 
     kratos:
-        image: fnfcentral/kratos:local
+        image: dualvs/fnfcentral-kratos:local
         depends_on:
             - kratos-migrate
             - sqldb
@@ -130,7 +130,7 @@ services:
             PG_EXPORTER_AUTO_DISCOVER_DATABASES: "true"
 
     prometheus:
-        image: fnfcentral/metrics:local
+        image: dualvs/fnfcentral-metrics:local
         depends_on:
             - nginx-exporter
             - kratos

@@ -7,4 +7,4 @@ local:
 
     COPY user.schema.json .
 
-    SAVE IMAGE fnfcentral/kratos:local
+    SAVE IMAGE dualvs/fnfcentral-kratos:local
