@@ -36,3 +36,19 @@ local:
     CMD [ "node", "build" ]
 
     SAVE IMAGE dualvs/fnfcentral:local
+
+canary:
+    ARG MODE
+
+    COPY package.json package.json
+    COPY package-lock.json package-lock.json
+
+    RUN npm ci --include=dev
+
+    COPY +build/generated_prisma /website/node_modules/.prisma
+    COPY prisma/ prisma/
+    COPY +build/build build/
+
+    CMD [ "node", "build" ]
+
+    SAVE IMAGE dualvs/fnfcentral:canary

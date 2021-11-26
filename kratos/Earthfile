@@ -8,3 +8,10 @@ local:
     COPY user.schema.json .
 
     SAVE IMAGE dualvs/fnfcentral-kratos:local
+
+canary:
+    COPY kratos.yml .
+
+    COPY user.schema.json .
+
+    SAVE IMAGE dualvs/fnfcentral-kratos:canary
