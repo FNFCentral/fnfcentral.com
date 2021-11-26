@@ -161,13 +161,20 @@
                                                 <label>
                                                     Name: <input
                                                         bind:value={diff.name}
-                                                    /></label
-                                                >
+                                                    />
+                                                </label>
                                                 <label>
                                                     Internal Number:
                                                     <input
                                                         type="number"
                                                         bind:value={diff.internalNumber}
+                                                    />
+                                                </label>
+                                                <label>
+                                                    Max Score:
+                                                    <input
+                                                        type="number"
+                                                        bind:value={diff.maxScore}
                                                     />
                                                 </label>
                                             </div>

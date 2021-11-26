@@ -24,10 +24,12 @@ export const put = async (request) => {
                 update: {
                     name: diff.name,
                     internalNumber: diff.internalNumber,
+                    maxScore: diff.maxScore,
                 },
                 create: {
                     name: diff.name,
                     internalNumber: diff.internalNumber,
+                    maxScore: diff.maxScore,
                 },
             });
         });
@@ -38,6 +40,7 @@ export const put = async (request) => {
             diffsCreate.push({
                 name: diff.name,
                 internalNumber: diff.internalNumber,
+                maxScore: diff.maxScore,
             });
         });
 

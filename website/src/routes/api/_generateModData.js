@@ -8,6 +8,7 @@ export default (data) => {
             diffs.push({
                 name: diff.name,
                 internalNumber: diff.internalNumber,
+                maxScore: diff.maxScore,
             });
         });
 
