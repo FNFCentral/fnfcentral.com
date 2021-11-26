@@ -1,3 +1,5 @@
+import { local, canary } from "$lib/modeData";
+
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const get = async () => {
     return {
@@ -8,8 +10,8 @@ export const get = async () => {
                 minVersion: 0,
             },
             mode: {
-                local: process.env["LOCAL"] ? true : false,
-                canary: process.env["CANARY"] ? true : false,
+                local: local,
+                canary: canary,
             },
         },
     };

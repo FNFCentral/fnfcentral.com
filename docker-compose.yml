@@ -130,7 +130,7 @@ services:
             PG_EXPORTER_AUTO_DISCOVER_DATABASES: "true"
 
     prometheus:
-        image: dualvs/fnfcentral-metrics:local
+        image: dualvs/fnfcentral-testing_metrics:local
         depends_on:
             - nginx-exporter
             - kratos
