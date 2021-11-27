@@ -6,3 +6,4 @@ subjectAltName = @alt_names
 [alt_names]
 DNS.1 = local.fnfcentral.com
 DNS.2 = *.local.fnfcentral.com
+DNS.3 = local.funkyfriday.games
