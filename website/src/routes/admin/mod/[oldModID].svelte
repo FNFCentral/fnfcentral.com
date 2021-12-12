@@ -130,7 +130,6 @@
     {#if content.modID}
         <label> Mod ID: <input bind:value={content.modID} /></label>
         <label> Name: <input bind:value={content.name} /></label>
-        <label> CID: <input bind:value={content.cid} /></label>
         <CollapsibleCard>
             <b slot="header">Songs</b>
             <div slot="body" class="tabbed">
@@ -144,10 +143,6 @@
                             <label>
                                 Internal Name:
                                 <input bind:value={song.internalName} />
-                            </label>
-                            <label>
-                                Icon CID:
-                                <input bind:value={song.iconCID} />
                             </label>
                             <CollapsibleCard>
                                 <b slot="header">Diffs</b>

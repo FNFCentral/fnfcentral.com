@@ -41,7 +41,6 @@
 <div class="block">
     <label> Mod ID: <input bind:value={content.modID} /></label>
     <label> Name: <input bind:value={content.name} /></label>
-    <label> CID: <input bind:value={content.cid} /></label>
 
     <button
         type="button"

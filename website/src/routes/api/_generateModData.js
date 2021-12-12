@@ -15,7 +15,7 @@ export default (data) => {
         songs.push({
             name: song.name,
             internalName: song.internalName,
-            iconCID: song.iconCID,
+            iconName: song.iconName,
             diffs: { createMany: { data: diffs } },
         });
     });
@@ -50,7 +50,6 @@ export default (data) => {
     return {
         modID: data.modID,
         name: data.name,
-        cid: data.cid,
         songs: { create: songs },
         extraInfos: { createMany: { data: extraInfos } },
         settings: { createMany: { data: settings } },

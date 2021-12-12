@@ -15,8 +15,6 @@ services:
             LDAP_SEARCH_BASE: dc=fnfcentral,dc=com
             LDAP_SEARCH_FILTER: (cn={{username}})
             JWT_SECRET: superSecret
-            IPFS_CLIENT_API: ipfs0:5001
-            IPFS_CLUSTER_API: cluster0:9094
 
     website-migrate:
         image: dualvs/fnfcentral:local
@@ -143,51 +141,21 @@ services:
         volumes:
             - grafana_data:/var/lib/grafana
 
-    # Testing IPFS Cluster
-    ipfs0:
-        container_name: ipfs0
-        image: ipfs/go-ipfs:latest
-        ports:
-            - 4001:4001
-            - 5001:5001
-            - 8080:8080
+    # File Servers
+    builds:
+        image: nginx
         volumes:
-            - data_ipfs0:/data/ipfs
-    cluster0:
-        container_name: cluster0
-        image: ipfs/ipfs-cluster:latest
-        depends_on:
-            - ipfs0
-        environment:
-            CLUSTER_PEERNAME: cluster0
-            CLUSTER_SECRET: 9094d40ace6208bc2d5b98b10044e5d5a80c30f7c7c51abdde49936af8e5e977
-            CLUSTER_IPFSHTTP_NODEMULTIADDRESS: /dns4/ipfs0/tcp/5001
-            CLUSTER_CRDT_TRUSTEDPEERS: "*"
-            CLUSTER_RESTAPI_HTTPLISTENMULTIADDRESS: /ip4/0.0.0.0/tcp/9094
-            CLUSTER_MONITORPINGINTERVAL: 2s
-        ports:
-            - "127.0.0.1:9094:9094"
+            - ./files/builds:/usr/share/nginx/html
+    
+    files:
+        image: nginx
         volumes:
-            - data_cluster0:/data/ipfs-cluster
+            - ./files/files:/usr/share/nginx/html
 
-    ipfs1:
-        container_name: ipfs1
-        image: ipfs/go-ipfs:latest
+    games:
+        image: nginx
         volumes:
-            - data_ipfs1:/data/ipfs
-    cluster1:
-        container_name: cluster1
-        image: ipfs/ipfs-cluster:latest
-        depends_on:
-            - ipfs1
-        environment:
-            CLUSTER_PEERNAME: cluster1
-            CLUSTER_SECRET: 9094d40ace6208bc2d5b98b10044e5d5a80c30f7c7c51abdde49936af8e5e977
-            CLUSTER_IPFSHTTP_NODEMULTIADDRESS: /dns4/ipfs1/tcp/5001
-            CLUSTER_CRDT_TRUSTEDPEERS: "*"
-            CLUSTER_MONITORPINGINTERVAL: 2s
-        volumes:
-            - data_cluster1:/data/ipfs-cluster
+            - ./files/games:/usr/share/nginx/html
 
 volumes:
     sqldb_data:
@@ -199,9 +167,3 @@ volumes:
     ldap_data:
 
     ldap_config:
-
-    # IPFS Test Cluster
-    data_ipfs0:
-    data_cluster0:
-    data_ipfs1:
-    data_cluster1:

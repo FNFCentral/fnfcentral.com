@@ -77,7 +77,6 @@
                 modID: rawData.mod.modID,
                 modData: { songs, extraInfos, settings },
                 mod: rawData.mod.name,
-                cid: rawData.mod.cid,
             },
         };
     }
@@ -99,7 +98,6 @@
     export let modID = "";
     export let modData = { songs: [], extraInfos: [], settings: [] };
     export let mod = "";
-    export let cid = "0";
 
     // Fullscreen Crap
     function makeFullscreen() {
@@ -287,7 +285,7 @@
     </div>
     <iframe
         id="game"
-        src="https://{rawURL}/{cid}"
+        src="https://games.{rawURL}/{modID}"
         allowfullscreen
         allow="fullscreen gamepad"
         loading="lazy"

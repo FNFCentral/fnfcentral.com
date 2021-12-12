@@ -40,7 +40,6 @@
         "@prisma/client": "^3.4.2",
         "adm-zip": "^0.5.9",
         "cookie": "^0.4.1",
-        "ipfs-http-client": "^54.0.0",
         "jsonwebtoken": "^8.5.1",
         "ldapauth-fork": "^5.0.1",
         "prom-client": "^14.0.1",

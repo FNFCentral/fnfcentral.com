@@ -43,7 +43,14 @@
             };
 
             if (!imageURL)
-                imageURL = "https://" + rawURL + "/" + data.diff.song.iconCID;
+                imageURL =
+                    "https://files." +
+                    rawURL +
+                    "/icons/" +
+                    data.diff.song.mod.modID +
+                    "/" +
+                    data.diff.song.iconName +
+                    ".png";
         }
     });
 </script>

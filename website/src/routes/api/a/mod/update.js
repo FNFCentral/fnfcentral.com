@@ -49,13 +49,13 @@ export const put = async (request) => {
             update: {
                 name: song.name,
                 internalName: song.internalName,
-                iconCID: song.iconCID,
+                iconName: song.iconName,
                 diffs: { upsert: diffs },
             },
             create: {
                 name: song.name,
                 internalName: song.internalName,
-                iconCID: song.iconCID,
+                iconName: song.iconName,
                 diffs: { createMany: { data: diffsCreate } },
             },
         });
@@ -114,7 +114,6 @@ export const put = async (request) => {
     const modData = {
         modID: body.modID,
         name: body.name,
-        cid: body.cid,
         songs: { upsert: songs },
         extraInfos: { upsert: extraInfos },
         settings: {
