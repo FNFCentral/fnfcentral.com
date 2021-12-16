@@ -10,6 +10,7 @@ const OPTS = {
     bindCredentials: process.env["LDAP_BIND_PASS"],
     searchBase: process.env["LDAP_SEARCH_BASE"],
     searchFilter: process.env["LDAP_SEARCH_FILTER"],
+    reconnect: true,
 };
 const ldapAuth = new LdapAuth(OPTS);
 
