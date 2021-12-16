@@ -27,11 +27,12 @@ services:
     nginx:
         build: ./testing_nginx
         depends_on:
-            - frontend
             - website
             - kratos
             - byebyemail
-            - ipfs0
+            - builds
+            - files
+            - games
         ports:
             - 80:80
             - 443:443
@@ -68,6 +69,7 @@ services:
         command: migrate --config /home/ory/kratos.yml sql -e --yes
         environment:
             DSN: "postgres://postgres:password@sqldb:5432/postgres?sslmode=allow"
+            SERVE_PUBLIC_CORS_ALLOWED_ORIGINS: "https://local.fnfcentral.com"
             SELFSERVICE_DEFAULT_BROWSER_RETURN_URL: "https://local.fnfcentral.com/dashboard"
             SELFSERVICE_WHITELISTED_RETURN_URLS: "https://local.fnfcentral.com"
             SERVE_PUBLIC_BASE_URL: "https://user.local.fnfcentral.com"
@@ -84,6 +86,7 @@ services:
         command: serve --watch-courier --config /home/ory/kratos.yml
         environment:
             DSN: "postgres://postgres:password@sqldb:5432/postgres?sslmode=allow"
+            SERVE_PUBLIC_CORS_ALLOWED_ORIGINS: "https://local.fnfcentral.com"
             SELFSERVICE_DEFAULT_BROWSER_RETURN_URL: "https://local.fnfcentral.com/dashboard"
             SELFSERVICE_WHITELISTED_RETURN_URLS: "https://local.fnfcentral.com"
             SERVE_PUBLIC_BASE_URL: "https://user.local.fnfcentral.com"
@@ -146,7 +149,7 @@ services:
         image: nginx
         volumes:
             - ./files/builds:/usr/share/nginx/html
-    
+
     files:
         image: nginx
         volumes:

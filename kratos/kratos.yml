@@ -38,9 +38,6 @@ serve:
     public:
         cors:
             enabled: true
-            allowed_origins:
-                - "https://local.fnfcentral.com"
-                - "https://*.local.fnfcentral.com"
             allowed_methods:
                 - POST
                 - GET
