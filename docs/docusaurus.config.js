@@ -78,11 +78,11 @@ const config = {
                 style: "dark",
                 links: [
                     {
-                        title: "Docs",
+                        title: "FNF Central",
                         items: [
                             {
-                                label: "Tutorial",
-                                to: "/docs/intro",
+                                label: "Website",
+                                to: "https://fnfcentral.com",
                             },
                         ],
                     },
