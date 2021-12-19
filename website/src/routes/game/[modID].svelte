@@ -93,6 +93,7 @@
     import getUserExtraInfos from "$lib/api/getUserExtraInfos";
     import getUserSettings from "$lib/api/getUserSettings";
     import saveUserSetting from "$lib/api/saveUserSetting";
+    import identityStore from "$lib/auth/identityStore";
     import { rawURL } from "$lib/modeData";
 
     export let modID = "";
@@ -120,41 +121,62 @@
     $: gameLog = [];
     $: scoreIDs = [];
 
+    $: {
+        if ($identityStore) {
+            console.log(
+                "Game Data Updating From Player " +
+                    $identityStore.id +
+                    "'s Data"
+            );
+
+            sendInformation(
+                document.getElementById("game").contentWindow,
+                "https://games." + rawURL
+            );
+        }
+    }
+
+    const sendInformation = async (targetWindow, origin) => {
+        targetWindow.postMessage(
+            {
+                purpose: "set_mod_data",
+                songs: modData.songs,
+                extraInfos: modData.extraInfos,
+                settings: modData.settings,
+            },
+            origin
+        );
+        targetWindow.postMessage(
+            {
+                purpose: "set_score_data",
+                topScores: await getCurUserTopScores({ modID }),
+            },
+            origin
+        );
+        targetWindow.postMessage(
+            {
+                purpose: "set_extra_info",
+                userExtraInfos: await getUserExtraInfos({ modID }),
+            },
+            origin
+        );
+        targetWindow.postMessage(
+            {
+                purpose: "set_settings",
+                userSettings: await getUserSettings({ modID }),
+            },
+            origin
+        );
+    };
+
     const handleMessage = async (event) => {
         console.log(JSON.stringify(event.data) + " from " + event.origin);
 
+        if (event.origin != "https://games." + rawURL) return;
+
         switch (event.data.purpose) {
             case "register": {
-                event.source.postMessage(
-                    {
-                        purpose: "set_mod_data",
-                        songs: modData.songs,
-                        extraInfos: modData.extraInfos,
-                        settings: modData.settings,
-                    },
-                    event.origin
-                );
-                event.source.postMessage(
-                    {
-                        purpose: "set_score_data",
-                        topScores: await getCurUserTopScores({ modID }),
-                    },
-                    event.origin
-                );
-                event.source.postMessage(
-                    {
-                        purpose: "set_extra_info",
-                        userExtraInfos: await getUserExtraInfos({ modID }),
-                    },
-                    event.origin
-                );
-                event.source.postMessage(
-                    {
-                        purpose: "set_settings",
-                        userSettings: await getUserSettings({ modID }),
-                    },
-                    event.origin
-                );
+                await sendInformation(event.source, event.origin);
                 break;
             }
 
