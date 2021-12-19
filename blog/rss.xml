@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>FNF Central Docs Blog</title>
+        <link>https://docs.fnfcentral.com/blog</link>
+        <description>FNF Central Docs Blog</description>
+        <lastBuildDate>Sat, 27 Nov 2021 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <item>
+            <title><![CDATA[Welcome To The FNF Docs!]]></title>
+            <link>https://docs.fnfcentral.com/blog/welcome-to-docs</link>
+            <guid>welcome-to-docs</guid>
+            <pubDate>Sat, 27 Nov 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[Hi 🙂]]></description>
+            <content:encoded><![CDATA[<h2>Hi 🙂</h2><p>Welcome the the new FNF Central Docs! This site will include documentation on a ton of things (internal and external), such as the SuperSickAPI, the api (private and public), testing and deploying FNF Central, and soon more!</p><p>Expect this site to change a ton in the first few months of FNF Central.</p><p><img src="./Boyfriend.png" alt="Boyfriend"/></p>]]></content:encoded>
+        </item>
+    </channel>
+</rss>

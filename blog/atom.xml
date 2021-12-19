@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://docs.fnfcentral.com/blog</id>
+    <title>FNF Central Docs Blog</title>
+    <updated>2021-11-27T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://docs.fnfcentral.com/blog"/>
+    <subtitle>FNF Central Docs Blog</subtitle>
+    <icon>https://docs.fnfcentral.com/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Welcome To The FNF Docs!]]></title>
+        <id>welcome-to-docs</id>
+        <link href="https://docs.fnfcentral.com/blog/welcome-to-docs"/>
+        <updated>2021-11-27T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Hi 🙂]]></summary>
+        <content type="html"><![CDATA[<h2>Hi 🙂</h2><p>Welcome the the new FNF Central Docs! This site will include documentation on a ton of things (internal and external), such as the SuperSickAPI, the api (private and public), testing and deploying FNF Central, and soon more!</p><p>Expect this site to change a ton in the first few months of FNF Central.</p><p><img src="./Boyfriend.png" alt="Boyfriend"/></p>]]></content>
+        <author>
+            <name>Joseph (JRed)</name>
+            <uri>https://github.com/jredow</uri>
+        </author>
+    </entry>
+</feed>
