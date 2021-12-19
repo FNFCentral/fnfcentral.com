@@ -4,6 +4,6 @@
 
 <p>Epic Gaming!</p>
 
-<a href={"/game/fnf"}> Link to the og! </a>
+<p><a href={"/game/fnf"}> Link to the og! </a></p>
 
-<a href={"/game/psych"}> Link to Psych Engine! </a>
+<p><a href={"/game/psych"}> Link to Psych Engine! </a></p>
