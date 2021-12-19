@@ -25,7 +25,11 @@
         </div>
         <div class="flex flex-col items-start">
             <b>Important Links</b>
-            <p>Test</p>
+            <a
+                href="https://docs.fnfcentral.com"
+                target="_blank"
+                rel="noopener noreferrer">Docs</a
+            >
         </div>
         <div class="flex flex-col items-start">
             <b>Info</b>

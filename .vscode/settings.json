@@ -1,0 +1,6 @@
+{
+    "[yaml]": {
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    }
+}
