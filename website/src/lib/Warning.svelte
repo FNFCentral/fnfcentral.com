@@ -23,7 +23,7 @@
                 work or not be implemented. Expect consistant deletion of data.
                 Your real credentials will not work here. Out of an abundence of
                 caution, please use a password you do not use anywhere else (you
-                should already do that)!
+                should already do that!)
             </p>
         {/if}
     </div>
