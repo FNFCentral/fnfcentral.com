@@ -307,7 +307,7 @@
     </div>
     <iframe
         id="game"
-        src="https://games.{rawURL}/{modID}"
+        src="https://games.{rawURL}/{modID}/"
         allowfullscreen
         allow="fullscreen gamepad"
         loading="lazy"
