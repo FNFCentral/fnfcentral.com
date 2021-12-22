@@ -4,9 +4,17 @@
         <title>FNF Central Docs Blog</title>
         <link>https://docs.fnfcentral.com/blog</link>
         <description>FNF Central Docs Blog</description>
-        <lastBuildDate>Sat, 27 Nov 2021 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 20 Dec 2021 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
+        <item>
+            <title><![CDATA[Canary Initial Deployment]]></title>
+            <link>https://docs.fnfcentral.com/blog/canary-deployment</link>
+            <guid>canary-deployment</guid>
+            <pubDate>Mon, 20 Dec 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[Canary?]]></description>
+            <content:encoded><![CDATA[<h2>Canary?</h2><p>To test everything, we deploy a small test site just like the main server to make sure everything goes okay. Upon launch, it will be brought down, but it will come back occasionally for testing and community feedback purposes.</p><h2>Canary Deployment Retrospective</h2><p>Well the deployment... went well, but anything but smooth. We are now on version 0.0.4, all in one day.</p><p><img src="./DoBetter.gif" alt="Boyfriend Miss"/></p><p>It could have gone worse of course. After 0.0.3 it was pretty stable, just 0.0.4 was needed as it added a ton of security fixes with the Helm chart. Expect actual posts on every version from this point on!</p><p>See you all later, and have a great Holiday!</p>]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Welcome To The FNF Docs!]]></title>
             <link>https://docs.fnfcentral.com/blog/welcome-to-docs</link>

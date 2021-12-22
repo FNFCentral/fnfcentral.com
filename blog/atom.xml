@@ -2,11 +2,23 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://docs.fnfcentral.com/blog</id>
     <title>FNF Central Docs Blog</title>
-    <updated>2021-11-27T00:00:00.000Z</updated>
+    <updated>2021-12-20T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://docs.fnfcentral.com/blog"/>
     <subtitle>FNF Central Docs Blog</subtitle>
     <icon>https://docs.fnfcentral.com/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Canary Initial Deployment]]></title>
+        <id>canary-deployment</id>
+        <link href="https://docs.fnfcentral.com/blog/canary-deployment"/>
+        <updated>2021-12-20T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Canary?]]></summary>
+        <content type="html"><![CDATA[<h2>Canary?</h2><p>To test everything, we deploy a small test site just like the main server to make sure everything goes okay. Upon launch, it will be brought down, but it will come back occasionally for testing and community feedback purposes.</p><h2>Canary Deployment Retrospective</h2><p>Well the deployment... went well, but anything but smooth. We are now on version 0.0.4, all in one day.</p><p><img src="./DoBetter.gif" alt="Boyfriend Miss"/></p><p>It could have gone worse of course. After 0.0.3 it was pretty stable, just 0.0.4 was needed as it added a ton of security fixes with the Helm chart. Expect actual posts on every version from this point on!</p><p>See you all later, and have a great Holiday!</p>]]></content>
+        <author>
+            <name>Joseph (JRed)</name>
+            <uri>https://github.com/jredow</uri>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Welcome To The FNF Docs!]]></title>
         <id>welcome-to-docs</id>
