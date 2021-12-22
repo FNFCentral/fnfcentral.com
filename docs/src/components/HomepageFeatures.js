@@ -8,9 +8,9 @@ const FeatureList = [
         ImgFile: require("../../static/img/boyfriend/bfanim.gif").default,
         description: (
             <>
-                Want to integrate FNF Central into your mod? Well just go to the
-                <code>SuperSickAPI</code> docs! We outline how to add it to any
-                engine, along with step by steps for major engines!
+                Want to integrate the FNF Central API into your mod? Well just
+                go to the <code>SuperSickAPI</code> docs! We outline how to add
+                it to any engine, along with step by steps for major engines!
             </>
         ),
     },

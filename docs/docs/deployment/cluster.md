@@ -47,7 +47,7 @@ This is a very easy process. Just go to `Cluster Management` tab and click creat
 
 FNF Central recommends two nodes at least for a "stable" cluster.
 
-If you are using node creation we recommend at least 3 nodes (MUST be an odd number) with `etcd` role, 2 nodes with `Control Plane` role, and at least 2 nodes with the `Worker` role.
+If you are using node creation we recommend at least 3 nodes (MUST be an odd number) with `etcd` role, at least 2 nodes with `Control Plane` role, and at least 2 nodes with the `Worker` role.
 
 ## Adding The Bitnami Charts
 

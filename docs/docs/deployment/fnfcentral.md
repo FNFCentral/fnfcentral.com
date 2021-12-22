@@ -32,7 +32,6 @@ These are the options you need to set.
       - `filter` the filter to search for users with
     - `url` the url of the ldap server
   - `sslMode` probably should be `self` unless you know what you are doing
-  - `tag` should be `canary`
 - `kratos`
   - `database`
     - `domain` should be set to `postgresql-postgresql-ha-postgresql.fnfcentral-sql.svc.cluster.local`
@@ -47,7 +46,6 @@ These are the options you need to set.
     - `port` should be the port of the smtps server
     - `username` should be the username of the user of the smtps server
   - `sslMode` probably should be `self` unless you know what you are doing
-  - `tag` should be `canary`
 
 ## What Next?
 
