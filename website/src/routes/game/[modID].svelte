@@ -50,6 +50,7 @@
             extraInfos.push({
                 extraInfoID: extraInfo.extraInfoID,
                 internalName: extraInfo.internalName,
+                valueType: extraInfo.valueType,
             });
         });
 
@@ -250,6 +251,21 @@
             case "miss": {
                 gameLog = [
                     "Note Missed.  :C  Note Time: " +
+                        event.data.noteTime +
+                        " Combo: " +
+                        event.data.combo +
+                        " Score: " +
+                        event.data.currentScore,
+                    ...gameLog,
+                ];
+                gameScore = event.data.currentScore;
+                gameCombo = event.data.combo;
+                break;
+            }
+
+            case "sustain_miss": {
+                gameLog = [
+                    "Sustain Broken.  :C  Note Time: " +
                         event.data.noteTime +
                         " Combo: " +
                         event.data.combo +
