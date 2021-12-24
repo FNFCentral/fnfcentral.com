@@ -6,11 +6,11 @@
         },
         {
             "name": "📘 docs",
-            "path": "..\\docs"
+            "path": "../docs"
         },
         {
             "name": "🚀 website",
-            "path": "..\\website"
+            "path": "../website"
         }
     ],
     "settings": {
