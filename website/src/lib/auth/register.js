@@ -82,21 +82,44 @@ export default () => {
                         redirect: "manual",
                         credentials: "include",
                     })
-                        .then((response) => {
+                        .then(async (response) => {
+                            let responseJSON = await response.json();
+
                             console.log(
                                 "Registration Submit Response:" +
-                                    JSON.stringify(response.json())
+                                    JSON.stringify(responseJSON)
                             );
 
                             if (!response.ok) {
-                                throw new Error(response.statusText);
+                                switch (response.status) {
+                                    case (400):
+                                        if (responseJSON.ui.messages) {
+                                            throw new Error(responseJSON.ui.messages[0].text);
+                                        }
+                                        const errorNodes = responseJSON.ui.nodes.filter(node => node.messages.length > 0);
+                                        if (errorNodes.length > 0) {
+                                            throw new Error(errorNodes[0].messages[0].text);
+                                        } else {
+                                            throw new Error();
+                                        }
+                                    case (422):
+                                        throw new Error(responseJSON.reason);
+                                    case (500):
+                                        throw new Error(responseJSON.error.reason);
+                                    default:
+                                        throw new Error();
+                                }
                             }
 
                             return { tag: tag };
                         })
                         .catch((error) => {
+                            if (!error.message) {
+                                error.message = "Unknown Error"
+                            }
+
                             Swal.showValidationMessage(
-                                `Registration failed: ${error}`
+                                `Registration failed: ${error.message}`
                             );
                         });
                 },
