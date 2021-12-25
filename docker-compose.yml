@@ -71,6 +71,7 @@ services:
             DSN: "postgres://postgres:password@sqldb:5432/postgres?sslmode=allow"
             SERVE_PUBLIC_CORS_ALLOWED_ORIGINS: "https://local.fnfcentral.com"
             SELFSERVICE_DEFAULT_BROWSER_RETURN_URL: "https://local.fnfcentral.com/dashboard"
+            SELFSERVICE_FLOWS_VERIFICATION_UI_URL: "https://local.fnfcentral.com/dashboard"
             SELFSERVICE_WHITELISTED_RETURN_URLS: "https://local.fnfcentral.com"
             SERVE_PUBLIC_BASE_URL: "https://user.local.fnfcentral.com"
             COURIER_SMTP_CONNECTION_URI: "smtps://test:test@byebyemail:1025/?skip_ssl_verify=true&legacy_ssl=true"
