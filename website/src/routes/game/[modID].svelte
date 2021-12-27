@@ -87,6 +87,8 @@
     import Fa from "svelte-fa/src/fa.svelte";
     import { faExpand } from "@fortawesome/free-solid-svg-icons";
 
+    import { onMount } from "svelte";
+
     import ScoreBanner from "$lib/banners/ScoreBanner.svelte";
     import submitScore from "$lib/api/submitScorce";
     import saveUserExtraInfo from "$lib/api/saveUserExtraInfo";
@@ -121,6 +123,7 @@
     $: gameCombo = 0;
     $: gameLog = [];
     $: scoreIDs = [];
+    $: gameWindow = undefined;
 
     $: {
         if ($identityStore) {
@@ -130,10 +133,12 @@
                     "'s Data"
             );
 
-            sendInformation(
-                document.getElementById("game").contentWindow,
-                "https://games." + rawURL
-            );
+            if ($gameWindow) {
+                sendInformation(
+                    $gameWindow.contentWindow,
+                    "https://games." + rawURL
+                );
+            }
         }
     }
 
@@ -303,6 +308,10 @@
             }
         }
     };
+
+    onMount(() => {
+        gameWindow = document.getElementById("game");
+    });
 </script>
 
 <svelte:head>
