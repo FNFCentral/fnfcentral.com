@@ -8,6 +8,18 @@
     <subtitle>FNF Central Docs Blog</subtitle>
     <icon>https://docs.fnfcentral.com/img/favicon.ico</icon>
     <entry>
+        <title type="html"><![CDATA[0.0.5 Release and First Outage]]></title>
+        <id>0.0.5-and-outages</id>
+        <link href="https://docs.fnfcentral.com/blog/0.0.5-and-outages"/>
+        <updated>2021-12-20T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[0.0.5]]></summary>
+        <content type="html"><![CDATA[<h2>0.0.5</h2><p>This is mostly a QoL update, with a few new nice features. Nothing groundbreaking, as I am currently on Holiday vacation in a totally different state.</p><h2>The Outage</h2><p>At approximately 23:50 UTC on the 23rd, one of the worker nodes went offline. Within 5 minuets the entire cluster had collapsed, as there are only two worker nodes in the Canary. The server was back online 00:19 on the 24th.</p><p><img src="./DoBetter.gif" alt="Boyfriend Miss"/></p><p>Thanks to some late notice from Linode, I learned that this was a hardware failure that forced them to relocate my node which was running one of the two workers, bringing it offline for about 30 minuets. Why it took that long, don&#x27;t ask me. All this really proved was that the official cluster will be at least three nodes.</p><h2>Changes in The Update</h2><h3>New Features</h3><ul><li>Account Recovery (Yes I Know Email Still Does Not Work On the Canary)</li><li>Added Error Page</li><li>Added Dashboard (Kinda)</li></ul><h3>Changes</h3><ul><li>Added Output for Registration and Login</li><li>Removed FNF OG From Home Page As It Longer Is Supported</li></ul><h3>Bug Fixes</h3><ul><li>Fixed Weird Bug That Rarely Happens On Game Page</li></ul>]]></content>
+        <author>
+            <name>Joseph (JRed)</name>
+            <uri>https://github.com/jredow</uri>
+        </author>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[Canary Initial Deployment]]></title>
         <id>canary-deployment</id>
         <link href="https://docs.fnfcentral.com/blog/canary-deployment"/>
