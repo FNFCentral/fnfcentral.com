@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 
 import { userURL } from "../modeData";
 import identityStore from "./identityStore";
+import recover from "./recover";
 
 export default () => {
     Swal.fire({
@@ -40,7 +41,9 @@ export default () => {
                     '<input id="login-password" type="password" class="swal2-input" placeholder="password">',
                 focusConfirm: false,
                 showCancelButton: true,
+                showDenyButton: true,
                 confirmButtonText: "Login",
+                denyButtonText: "Recover",
                 showLoaderOnConfirm: true,
                 preConfirm: () => {
                     let csrf_token =
@@ -78,20 +81,31 @@ export default () => {
 
                             if (!response.ok) {
                                 switch (response.status) {
-                                    case (400):
+                                    case 400: {
                                         if (responseJSON.ui.messages) {
-                                            throw new Error(responseJSON.ui.messages[0].text);
+                                            throw new Error(
+                                                responseJSON.ui.messages[0].text
+                                            );
                                         }
-                                        const errorNodes = responseJSON.ui.nodes.filter(node => node.messages.length > 0);
+                                        const errorNodes =
+                                            responseJSON.ui.nodes.filter(
+                                                (node) =>
+                                                    node.messages.length > 0
+                                            );
                                         if (errorNodes.length > 0) {
-                                            throw new Error(errorNodes[0].messages[0].text);
+                                            throw new Error(
+                                                errorNodes[0].messages[0].text
+                                            );
                                         } else {
                                             throw new Error();
                                         }
-                                    case (422):
+                                    }
+                                    case 422:
                                         throw new Error(responseJSON.reason);
-                                    case (500):
-                                        throw new Error(responseJSON.error.reason);
+                                    case 500:
+                                        throw new Error(
+                                            responseJSON.error.reason
+                                        );
                                     default:
                                         throw new Error();
                                 }
@@ -101,7 +115,7 @@ export default () => {
                         })
                         .catch((error) => {
                             if (!error.message) {
-                                error.message = "Unknown Error"
+                                error.message = "Unknown Error";
                             }
 
                             Swal.showValidationMessage(
@@ -117,6 +131,8 @@ export default () => {
                         icon: "success",
                     });
                     identityStore.refresh();
+                } else if (result.isDenied) {
+                    recover();
                 }
             });
         })

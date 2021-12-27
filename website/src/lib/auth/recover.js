@@ -1,16 +1,15 @@
 import Swal from "sweetalert2";
 
 import { userURL } from "../modeData";
-import identityStore from "./identityStore";
 
 export default () => {
     Swal.fire({
-        title: "Register",
+        title: "Recovery",
         text: "Setting Things Up!\nPlease wait a moment!",
         showConfirmButton: false,
     });
 
-    fetch("https://" + userURL + "/self-service/registration/browser", {
+    fetch("https://" + userURL + "/self-service/recovery/browser", {
         method: "GET",
         mode: "cors",
         cache: "no-cache",
@@ -29,45 +28,27 @@ export default () => {
         })
         .then((initResponseJSON) => {
             console.log(
-                "Registration Init Response:" + JSON.stringify(initResponseJSON)
+                "Recovery Init Response:" + JSON.stringify(initResponseJSON)
             );
 
             Swal.fire({
-                title: "Register",
+                title: "Recovery",
                 html:
                     `<input id="csrf_token" type="hidden" hidden value=${initResponseJSON.ui.nodes[0].attributes.value}>` +
-                    '<input id="register-tag" type="text" class="swal2-input" placeholder="Boyfriend">' +
-                    '<input id="register-email" type="email" class="swal2-input" placeholder="bf@fnfcentral.com">' +
-                    '<input id="register-password" type="password" class="swal2-input" placeholder="password">' +
-                    '<input id="register-confirm-password" type="password" class="swal2-input" placeholder="password">',
+                    '<input id="recovery-email" type="email" class="swal2-input" placeholder="bf@fnfcentral.com">',
                 focusConfirm: false,
                 showCancelButton: true,
-                confirmButtonText: "Register",
+                confirmButtonText: "Recovery",
                 showLoaderOnConfirm: true,
                 preConfirm: () => {
                     let csrf_token =
                         document.getElementById("csrf_token").value;
-                    let tag = document.getElementById("register-tag").value;
-                    let email = document.getElementById("register-email").value;
-                    let password =
-                        document.getElementById("register-password").value;
-                    let confirm_password = document.getElementById(
-                        "register-confirm-password"
-                    ).value;
-
-                    if (confirm_password !== password) {
-                        Swal.showValidationMessage("Passwords Do Not Match");
-                        return false;
-                    }
+                    let email = document.getElementById("recovery-email").value;
 
                     const body = {
-                        method: "password",
-                        password,
+                        method: "link",
                         csrf_token,
-                        traits: {
-                            tag,
-                            email,
-                        },
+                        email,
                     };
 
                     return fetch(initResponseJSON.ui.action, {
@@ -86,7 +67,7 @@ export default () => {
                             let responseJSON = await response.json();
 
                             console.log(
-                                "Registration Submit Response:" +
+                                "Recovery Submit Response:" +
                                     JSON.stringify(responseJSON)
                             );
 
@@ -111,8 +92,6 @@ export default () => {
                                             throw new Error();
                                         }
                                     }
-                                    case 422:
-                                        throw new Error(responseJSON.reason);
                                     case 500:
                                         throw new Error(
                                             responseJSON.error.reason
@@ -122,7 +101,7 @@ export default () => {
                                 }
                             }
 
-                            return { tag: tag };
+                            return { email: email };
                         })
                         .catch((error) => {
                             if (!error.message) {
@@ -130,26 +109,25 @@ export default () => {
                             }
 
                             Swal.showValidationMessage(
-                                `Registration failed: ${error.message}`
+                                `Recovery failed: ${error.message}`
                             );
                         });
                 },
             }).then((result) => {
                 if (result.isConfirmed) {
                     Swal.fire({
-                        title: `Welcome To FNF Central ${result.value.tag}!`,
-                        text: "Make Sure To Confirm Your Email!  Check You Spam Folder If You Do Not See The Verification Email!",
+                        title: `Recovery Email Sent To ${result.value.email}!`,
+                        text: "If you do not see it, please check your spam folder and wait a few minuets.",
                         icon: "success",
                     });
-                    identityStore.refresh();
                 }
             });
         })
         .catch((error) => {
             Swal.fire({
-                title: "Registration Failure",
+                title: "Recovery Failure",
                 icon: "error",
-                text: `Registration Failed: ${error}`,
+                text: `Recovery Failed: ${error}`,
             });
         });
 };
