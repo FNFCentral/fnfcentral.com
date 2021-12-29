@@ -123,7 +123,8 @@
     $: gameCombo = 0;
     $: gameLog = [];
     $: scoreIDs = [];
-    $: gameWindow = undefined;
+
+    let gameWindow = undefined;
 
     $: {
         if ($identityStore) {
@@ -133,9 +134,9 @@
                     "'s Data"
             );
 
-            if ($gameWindow) {
+            if (gameWindow) {
                 sendInformation(
-                    $gameWindow.contentWindow,
+                    gameWindow.contentWindow,
                     "https://games." + rawURL
                 );
             }
