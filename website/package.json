@@ -43,7 +43,6 @@
         "jsonwebtoken": "^8.5.1",
         "ldapauth-fork": "^5.0.1",
         "prom-client": "^14.0.1",
-        "sass": "^1.43.4",
-        "save-dev": "^0.0.1-security"
+        "sass": "^1.43.4"
     }
 }
